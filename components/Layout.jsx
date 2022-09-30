@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
-import Header from './Header'
-import Menu from './Menu'
+import Header from './Header/Header'
+import Menu from './Menu/Menu'
 
 function Layout({ children }) {
     return (
