@@ -1,3 +1,5 @@
+@import "~bootstrap/scss/bootstrap";
+
 :root {
   --navbar-width: 286px;
   --header-height: 104px;
@@ -63,7 +65,7 @@ a {
 #left_navbar .logo h2 {
   text-transform: uppercase;
   margin-left: 10px;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 2rem;
   color: #4E3F6B;
 }

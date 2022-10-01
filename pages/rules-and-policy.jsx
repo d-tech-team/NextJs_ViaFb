@@ -33,15 +33,17 @@ function Policy() {
                         <Card.Header as={'h5'} className={`${styles.title} bg-danger`}>Từ Chối Bảo Hành</Card.Header>
                         <Card.Body className={styles.body}>
                             <Card.Text className={styles.text}>
-                                <p>Không bảo hành và chịu trách nhiệm với các trường hợp khách hàng không Change và bị Back.</p>
-                                <ol>
-                                    <li>Không bảo hành checkpoint khi log lần đầu nếu không log bằng link mbasic.facebook.com, không bảo hành log bị 282.</li>
-                                    <li>Via zin ads có bảo hành HẠN CHẾ QC nếu die ads trước ngày mua.</li>
-                                    <li>Via xmdt, 902 bảo hành Hạn Chế QC khi log, bao tick 5 ngày.</li>
-                                    <li>Không bảo hành via xmdt khi vừa mà tự ý ấn kháng</li>
-                                    <li>Không bảo hành via khi vừa mua về thay đổi thông tin mà checkpoint.</li>
-                                    <li>Không bảo hành via khi vừa mua về không kiểm tra thông tin via xem có đúng với mô tả hay không mà tự ý thay đổi thông tin.</li>
-                                </ol>
+                                <>
+                                    <p>Không bảo hành và chịu trách nhiệm với các trường hợp khách hàng không Change và bị Back.</p>
+                                    <ol>
+                                        <li>Không bảo hành checkpoint khi log lần đầu nếu không log bằng link mbasic.facebook.com, không bảo hành log bị 282.</li>
+                                        <li>Via zin ads có bảo hành HẠN CHẾ QC nếu die ads trước ngày mua.</li>
+                                        <li>Via xmdt, 902 bảo hành Hạn Chế QC khi log, bao tick 5 ngày.</li>
+                                        <li>Không bảo hành via xmdt khi vừa mà tự ý ấn kháng</li>
+                                        <li>Không bảo hành via khi vừa mua về thay đổi thông tin mà checkpoint.</li>
+                                        <li>Không bảo hành via khi vừa mua về không kiểm tra thông tin via xem có đúng với mô tả hay không mà tự ý thay đổi thông tin.</li>
+                                    </ol>
+                                </>
                             </Card.Text>
                         </Card.Body>
                     </Card>

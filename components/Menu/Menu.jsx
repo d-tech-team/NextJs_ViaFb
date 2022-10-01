@@ -34,7 +34,7 @@ const menus = [
     },
     {
         title: 'Tin tức',
-        href: '/news',
+        href: '/blogs',
         icon: <FontAwesomeIcon icon={faNewspaper} />
 
     },
