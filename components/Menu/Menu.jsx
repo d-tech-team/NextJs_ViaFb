@@ -28,7 +28,7 @@ const menus = [
     },
     {
         title: 'Chính sách bảo hành',
-        href: '/policy',
+        href: '/rules-and-policy',
         icon: <FontAwesomeIcon icon={faHandHoldingMedical} />
 
     },

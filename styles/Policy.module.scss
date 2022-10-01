@@ -1,0 +1,24 @@
+.card_wrap {
+  display: flex;
+
+  .card {
+    border: none;
+    background-color: #fff;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
+    .title {
+      font-weight: 600;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-bottom: none;
+      color: #fff;
+    }
+    .text {
+    }
+  }
+  .item_accept {
+  }
+  .item_refuse {
+  }
+}

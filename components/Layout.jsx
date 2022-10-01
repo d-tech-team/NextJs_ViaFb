@@ -10,9 +10,9 @@ function Layout({ children }) {
             <Menu />
             <main>
                 <div className="main_content">
-                    <Container>
+                    <div className="wrapper">
                         {children}
-                    </Container>
+                    </div>
                 </div>
             </main>
         </>
