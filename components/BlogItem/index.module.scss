@@ -23,6 +23,10 @@
       font-weight: 500;
       font-size: 1.2rem;
       border-color: rgba(194, 192, 192, 0.2);
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .createdAt {
       font-size: 1rem;
@@ -31,6 +35,10 @@
     .subTitle {
       font-size: 0.9rem;
       font-weight: 500;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .text {
       font-weight: 300;

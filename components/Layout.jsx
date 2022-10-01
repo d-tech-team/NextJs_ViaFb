@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
 import Header from './Header/Header'
 import Menu from './Menu/Menu'
 
 function Layout({ children }) {
+    const [isShowMenu, setShowMenu] = useState(true)
+    const toggleMenu = () => {
+        setShowMenu(!isShowMenu);
+        return isShowMenu;
+    }
     return (
-        <>
-            <Header />
-            <Menu />
+        <div id="page" className={!isShowMenu && 'close'}>
+            <Header toggleMenu={toggleMenu} isShowMenu={isShowMenu} />
+            <Menu/>
             <main>
                 <div className="main_content">
                     <div className="wrapper">
@@ -15,7 +20,7 @@ function Layout({ children }) {
                     </div>
                 </div>
             </main>
-        </>
+        </div>
     )
 }
 

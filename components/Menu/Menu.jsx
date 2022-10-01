@@ -55,24 +55,24 @@ const menus = [
 
     },
 ]
-function Menu() {
+function Menu({ show }) {
     const router = useRouter();
     const { asPath } = router;
 
     function Item({ menu }) {
         return (
-            <li>
-                <Link href={menu.href} >
-                    <a target={menu.target} className={(menu.href == asPath) ? styles.active : ''}>
+            <li className='menu_item'>
+                <Link href={menu.href} className="menu_link" >
+                    <a target={menu.target} className={(menu.href == asPath) ? `${styles.active} active` : ''}>
                         {menu.icon}
-                        <span>{menu.title}</span>
+                        <span className='menu_title'>{menu.title}</span>
                         {menu.sub_icon}
                     </a>
                 </Link>
             </li>
         )
     }
-    
+
     return (
         <div id='left_navbar'>
             <div className='logo'>

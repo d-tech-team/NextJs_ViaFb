@@ -2,19 +2,19 @@ import React from 'react'
 import styles from './Header.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Dropdown, Nav, NavDropdown } from 'react-bootstrap'
-import { faBars, faBarsStaggered, faRightToBracket, faWallet } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faBars, faBarsStaggered, faRightToBracket, faWallet } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const isLogin = true;
 
-function Header() {
+function Header({ toggleMenu , isShowMenu}) {
     return (
         <header id="header">
             <div className={styles.header_wrap}>
                 <div className={styles.left}>
-                    <Button variant='link'>
-                        <FontAwesomeIcon icon={faBars} className={styles.button_toggle} />
+                    <Button variant='link' onClick={toggleMenu}>
+                        <FontAwesomeIcon icon={isShowMenu ? faBars : faArrowRight} className={styles.button_toggle} />
                     </Button>
                 </div>
                 <Nav className={styles.right}>
