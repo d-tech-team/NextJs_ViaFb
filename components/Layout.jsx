@@ -1,10 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
 import Header from './Header/Header'
 import Menu from './Menu/Menu'
 
 function Layout({ children }) {
     const [isShowMenu, setShowMenu] = useState(true)
+    const [deviceSize, changeDeviceSize] = useState(null);
+    useEffect(() => {
+        if (typeof window != 'undefined') {
+            window.addEventListener('resize', function () {
+                changeDeviceSize(window.innerWidth)
+            });
+            if (typeof deviceSize == 'number' && deviceSize < 768) {
+                setShowMenu(false);
+            }else {
+                setShowMenu(true);
+            }
+        }
+
+    }, [deviceSize]);
+
     const toggleMenu = () => {
         setShowMenu(!isShowMenu);
         return isShowMenu;
@@ -12,7 +27,7 @@ function Layout({ children }) {
     return (
         <div id="page" className={!isShowMenu && 'close'}>
             <Header toggleMenu={toggleMenu} isShowMenu={isShowMenu} />
-            <Menu/>
+            <Menu />
             <main>
                 <div className="main_content">
                     <div className="wrapper">

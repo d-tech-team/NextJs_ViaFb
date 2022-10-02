@@ -87,7 +87,13 @@ main .main_content {
 }
 
 main .main_content .wrapper {
+}
+
+.custom_container {
+    background-color: #fff;
+    border-radius: 20px;
     padding: 15px;
+
 }
 
 .close {
@@ -102,6 +108,7 @@ main .main_content .wrapper {
             align-items: center;
             padding-right: 0;
         }
+
         .menu_item {
             margin: 10px 0;
 
