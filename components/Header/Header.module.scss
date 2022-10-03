@@ -33,7 +33,7 @@
     margin-left: 10px;
     padding: 14px 20px;
   }
-
+  
   .dropdown_icon {
     border-radius: 50%;
   }
@@ -54,5 +54,16 @@
   .balance span {
     color: var(--primary);
     font-weight: 600;
+  }
+
+  .subMenu span {
+    font-size: 12px;
+  }
+  .subMenu:hover {
+    background-color: #f5f5f5;
+    padding: -5px;
+  }
+  .subMenu {
+    padding: 5px !important;
   }
 }
