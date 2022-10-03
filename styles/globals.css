@@ -2,18 +2,18 @@
   --navbar-width: 286px;
   --header-height: 104px;
   --white: #fff;
-  --primary: #451B9B;
+  --primary: #451b9b;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap");
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Prompt', sans-serif;
+  font-family: "Prompt", sans-serif;
   color: black;
-  background: #F8F8F8;
+  background: #f8f8f8;
 }
 
 a {
@@ -62,7 +62,7 @@ a {
   margin-left: 10px;
   font-weight: 700;
   font-size: 2rem;
-  color: #4E3F6B;
+  color: #4e3f6b;
 }
 
 main {
@@ -75,5 +75,4 @@ main .main_content {
   background-color: var(--white);
   border-radius: 5px;
   min-height: 100vh;
-
 }

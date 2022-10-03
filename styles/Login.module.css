@@ -1,0 +1,25 @@
+.wrapper {
+  background: rgb(245, 249, 252);
+  min-height: 100vh;
+  text-align: center;
+}
+
+.title_des {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #c0c7d3;
+  margin-bottom: 1rem;
+}
+
+.color_button {
+    background-color: #5C5FF5;
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+
