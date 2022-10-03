@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,500;1,600;1,700&display=swap");
 
 .wrapper {
-  font-family: "Prompt", sans-serif;
+  font-family: "Prompt", sans-serif !important;
   li {
     font-size: 14px;
   }
@@ -28,8 +28,62 @@
     cursor: pointer;
     margin-top: 10px;
   }
+}
 
-  p:first-child {
-    font-size: 12px;
+.create {
+  padding: 20px;
+  font-family: Prompt, sans-serif;
+  border-radius: 30px !important;
+  border: 0;
+  box-shadow: 3px 3px #eee;
+
+  .button {
+    background-color: #451B9B;
+    color: var(--white);
+    border: none;
+    border-radius: 20px;
+    padding: 15px 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 20px;
   }
+
+  .button:hover {
+    background-color: #46248b;
+  }
+
+  .input {
+    min-height: 54px;
+    width: 100%;
+    box-shadow: inset 0 0 0 1px #e2e8f0;
+    font-size: 14px;
+    border: none;
+    color: #ccc;
+    border-radius: 20px;
+  }
+
+  .input:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px #5c5ff5;
+  }
+
+  .label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    float: left;
+    margin-top: 20px;
+  }
+
+  option {
+    color: black !important;
+  }
+
+  .notice {
+    min-height: 60px;
+    background: #C3B5DF;
+    line-height: 60px;
+    font-weight: bold;
+  }
+
 }

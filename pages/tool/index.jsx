@@ -21,8 +21,7 @@ export default function Tool() {
                   style={{
                     color: "red",
                   }}
-                >
-                  ĐÃ TỪNG NẠP TIỀN
+                > ĐÃ TỪNG NẠP TIỀN
                 </strong>{" "}
                 mới có thể tạo Phôi
               </li>
@@ -59,7 +58,7 @@ export default function Tool() {
         </Card>
       </Col>
 
-      <Col md={6}  className='mt-3'>
+      <Col md={6} className='mt-3'>
         <Card className={styles.card}>
           <Card.Header
             as={"h5"}
@@ -70,7 +69,9 @@ export default function Tool() {
           <Card.Body className={styles.body}>
             {/* <Image src="/images/phoi.png" width={"100%"} height={"100%"} /> */}
             <img src="/images/phoi.png" alt="img false" width={"100%"} />
-            <p className="mt-2">
+            <p className="mt-2" style={{
+              fontSize: '12px'
+            }}>
               Dùng để gỡ Checkpoint (956 và 282) hoặc XMDT cho via mọi loại via
               🔥.
             </p>
