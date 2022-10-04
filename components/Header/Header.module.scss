@@ -18,10 +18,26 @@
   align-items: center;
   font-size: 14px;
   .button_auth {
-    padding: 12px 20px;
+    padding: 8px 15px !important;
     border-radius: 30px;
     text-transform: uppercase;
     margin-left: 15px;
+    font-size: 13px;
+
+    &:first-child {
+      background-color: #fc2e53;
+      color: #fff;
+      border: none;
+    }
+    &:last-child {
+      border: 1px solid violet;
+      color: violet;
+
+      &:hover {
+        background-color: violet;
+        color: #000;
+      }
+    }
 
     .icon {
       margin-right: 5px;
@@ -65,5 +81,41 @@
   }
   .subMenu {
     padding: 5px !important;
+  }
+}
+
+@media screen and (max-width: 2560px) {
+  .header_wrap {
+    padding: 0 15px;
+    height: 100%;
+  }
+  .left {
+    .button_toggle {
+      display: block;
+      font-size: 20px;
+    }
+  }
+  .right {
+    //display: none;
+    font-size: 14px;
+    .button_auth {
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+    #dropdown_profile {
+      width: 30px;
+      height: 30px;
+    }
+
+    & .item a,
+    & .item span {
+      padding-left: 10px;
+      padding: 10px 15px;
+    }
+
+    .deposit a {
+      border-radius: 20px;
+      font-size: 10px;
+    }
   }
 }

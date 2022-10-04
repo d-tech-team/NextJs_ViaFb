@@ -3,12 +3,17 @@ import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Auth.module.scss";
+import DefaultLayout from "../components/defaultLayout";
+import Head from "next/head";
 
-export default function Login() {
+function Login() {
   return (
-    <Container className={styles.wrapper}>
+    <Container fluid className={`${styles.wrapper} p-0`}>
+      <Head>
+        <title>Đăng nhập</title>
+      </Head>
       <Row>
-        <Col md={4} className={[styles.left, "mx-auto"].join("")}>
+        <Col md={4} className={[styles.left, "mx-auto mt-5"].join("")}>
           <Image src="/images/logo.png" alt="Logo" width={30} height={30} />
           <h2 className="font-weight-bold">VIAFB.VN</h2>
           <p className={styles.title_des}>Hãy đăng nhập để mua VIA nhé!</p>
@@ -43,3 +48,7 @@ export default function Login() {
     </Container>
   );
 }
+
+Login.Layout = DefaultLayout;
+
+export default Login;
