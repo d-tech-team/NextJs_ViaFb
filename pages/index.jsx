@@ -1,12 +1,8 @@
-import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.scss";
 export default function Home() {
 	return (
 		<>
-			<Head>
-				<title>Trang chủ</title>
-			</Head>
 			<div className={styles.page_title}>
 				<h1 className={styles.title}>
 					<Image src="/images/icon.svg" width={30} height={30} alt="" />
