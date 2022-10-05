@@ -16,10 +16,26 @@
       color: #fff;
     }
     .text {
+      color: #393939;
     }
   }
   .item_accept {
   }
   .item_refuse {
+  }
+}
+
+@media screen and (max-width: 2560px) {
+  .card_wrap {
+    flex-direction: column;
+    .card {
+      margin-bottom: 20px;
+    }
+  }
+  .text li {
+    font-size: 11px;
+  }
+  .title{
+    font-size: 15px;
   }
 }

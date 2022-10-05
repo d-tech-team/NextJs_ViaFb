@@ -50,3 +50,27 @@
     }
   }
 }
+
+@media screen and (max-width: 2560px) {
+  .blog {
+    .thumbnail {
+      width: 150px;
+      height: 100px;
+    }
+    .contentWrap {
+      padding-left: 30px;
+      .title,
+      .createdAt {
+        font-size: 13px;
+        //padding: 10px;
+        padding: 0rem!important;
+      }
+      .subTitle {
+        font-size: 0.8rem;
+      }
+      .text {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}

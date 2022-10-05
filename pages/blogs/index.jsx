@@ -5,19 +5,19 @@ import PageTitle from '../../components/Breadcumb'
 
 const blogs = [
     {
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, eius.',
+        title: 'Lorem ipsum dolor sit amet.',
         url: '/blogs/blog1',
         content: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam, cupiditate?',
         createdAt: '20/10/2022'
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, eius.',
+        title: 'Lorem ipsum dolor sit amet.',
         url: '/blogs/blog2',
         content: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam, cupiditate?',
         createdAt: '20/10/2022'
     },
     {
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, eius.',
+        title: 'Lorem ipsum dolor sit amet.',
         url: '/blogs/blog3',
         content: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam, cupiditate?',
         createdAt: '20/10/2022'
