@@ -5,10 +5,14 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function Tool() {
   return (
     <Row className={styles.wrapper}>
+      <Head>
+        <title>Tool</title>
+      </Head>
       <Col md={12}>
         <Card className={styles.card}>
           <Card.Body>

@@ -3,14 +3,19 @@ import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Auth.module.scss";
+import DefaultLayout from "../components/defaultLayout";
+import Head from "next/head";
 
-export default function Regsiter() {
+function Regsiter() {
   return (
-    <Container className={styles.wrapper}>
+    <Container fluid className={`${styles.wrapper} p-0`}>
+      <Head>
+        <title>Đăng ký</title>
+      </Head>
       <Row>
         <Col md={4} className={["mx-auto"].join("")}>
           {/* <Image src="/images/logo.png" alt="Logo" width={30} height={30} /> */}
-          <h2 className="">VIAFB.VN</h2>
+          <h2 className="mt-5">VIAFB.VN</h2>
           <p className={styles.title_des}>
             ViaFb.VN rất hân hạnh được Phục vụ khách hàng!
           </p>
@@ -61,3 +66,7 @@ export default function Regsiter() {
     </Container>
   );
 }
+
+Regsiter.Layout = DefaultLayout;
+
+export default Regsiter;

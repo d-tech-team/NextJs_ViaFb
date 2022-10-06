@@ -27,7 +27,7 @@ const subMenu = [
   {
     title: "Đăng xuất",
     icon: <FontAwesomeIcon icon={faRightFromBracket} />,
-    href: "/logout",
+    href: "/login",
     iconColor: "#FC2E53",
   },
 ];
@@ -54,7 +54,7 @@ function Header({ toggleMenu, isShowMenu }) {
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className={`${styles.item} ${styles.balance}`}>
-                <Nav.Link as="span">Số dư: {100} VND</Nav.Link>
+                <Nav.Link as={'span'}> Số dư: {100} VND</Nav.Link>
               </Nav.Item>
               <NavDropdown
                 className={styles.item}
@@ -97,16 +97,23 @@ function Header({ toggleMenu, isShowMenu }) {
             </>
           ) : (
             <>
-              <Button className={styles.button_auth} variant="danger">
-                <FontAwesomeIcon
-                  icon={faRightToBracket}
-                  className={styles.icon}
-                />
-                Đăng Nhập
-              </Button>
-              <Button className={styles.button_auth} variant="outline-primary">
-                Đăng Ký
-              </Button>
+              <Link href={"/login"}>
+                <Button className={styles.button_auth} variant="danger">
+                  <FontAwesomeIcon
+                    icon={faRightToBracket}
+                    className={styles.icon}
+                  />
+                  Đăng Nhập
+                </Button>
+              </Link>
+              <Link href={"/register"}>
+                <Button
+                  className={styles.button_auth}
+                  variant="outline-primary"
+                >
+                  Đăng Ký
+                </Button>
+              </Link>
             </>
           )}
         </Nav>

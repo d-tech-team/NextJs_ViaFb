@@ -1,11 +1,15 @@
 import React from "react";
 import { Card, Row, Col, Form, Button } from "react-bootstrap";
 import styles from "../../../styles/Tool.module.scss";
+import Head from "next/head";
 
 
 export default function Create() {
     return (
         <Card className={styles.create} >
+            <Head>
+                <title>Tạo Phôi</title>
+            </Head>
             <Card.Text as={"h3"}>Phôi Cali</Card.Text>
             <center>
                 <img src="/images/phoi.png" alt="img false" style={{
