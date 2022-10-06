@@ -12,12 +12,22 @@
     :last-child {
       color: red;
     }
+
     :focus {
       border: 1px solid #451b9b;
     }
   }
-  .button_close {
-    font-size: 12px;
-    border-radius: 20px !important;
-  }
+}
+
+.button_close,
+.button_buy {
+  font-size: 12px;
+  border-radius: 20px !important;
+  padding: 10px 20px;
+  margin: 0 10px;
+}
+
+.button_buy {
+  border: 1px solid #451b9b !important;
+  color: #451b9b !important;
 }

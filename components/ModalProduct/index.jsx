@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,7 +12,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Modal.module.scss";
 
+
 function ModalProduct(props, { product }) {
+  const [price, setPrice] = React.useState(product?.price ?? 1000);
+  const [total, setTotal] = React.useState(0);
+
   return (
     <Modal
       {...props}
@@ -46,7 +51,10 @@ function ModalProduct(props, { product }) {
             className={styles.form_control}
             type="number"
             placeholder="Nhập số lượng"
-            value={1}
+            onChange={(e) => {
+              setTotal(e.target.value * price);
+            }}
+            min={0}
           />
           <p className="mt-3">Tổng tiền : </p>
           <Form.Control
@@ -54,7 +62,7 @@ function ModalProduct(props, { product }) {
             type="number"
             disabled
             placeholder="Tổng tiền"
-            value={10000}
+            value={total}
           />
           <p className="mt-3">
             Chiết khấu : <strong>0%</strong>
@@ -65,14 +73,14 @@ function ModalProduct(props, { product }) {
         <div className="d-flex justify-content-end">
           <Button
             variant="secondary"
-            className={`${styles.button_close} border-danger mr-2 bg-transparent text-danger`}
+            className={`${styles.button_close} border-danger bg-transparent text-danger`}
             onClick={props.onHide}
           >
             <FontAwesomeIcon icon={faWindowClose} /> Đóng
           </Button>
           <Button
             variant="primary"
-            className="border-danger mr-2 bg-transparent text-primary"
+            className={`${styles.button_buy} border-danger mr-2 bg-transparent text-primary`}
           >
             <FontAwesomeIcon icon={faCartPlus} /> Mua hàng
           </Button>

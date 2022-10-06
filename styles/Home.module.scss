@@ -1,13 +1,27 @@
 .page_title {
   text-align: center;
+
   .title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     text-transform: uppercase;
   }
+
   .subtitle {
-    font-size: 1rem;
-  }
-  .subtitle:last-child {
     font-size: 0.8rem;
+    font-weight: 400;
   }
+
+  .subtitle:last-child {
+    font-size: 0.7rem;
+  }
+}
+
+.title_noti {
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.time_line h6 {
+  font-size: 13px;
 }
