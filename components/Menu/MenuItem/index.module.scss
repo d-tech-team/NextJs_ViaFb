@@ -1,0 +1,104 @@
+.menuItem {
+    list-style: none;
+    margin: 5px 0;
+
+    a {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        color: var(--primary);
+        font-weight: 500;
+        line-height: 1.5;
+        font-size: 13px;
+        position: relative;
+
+        &::before {
+            position: absolute;
+            content: "";
+            background: var(--primary);
+            width: 0;
+            height: 100%;
+            top: 0;
+            left: 0rem;
+            border-top-right-radius: 3.563rem;
+            border-bottom-right-radius: 3.563rem;
+            -webkit-transition: all 0.5s;
+            -ms-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+    }
+
+    a:not(.active):hover * {
+        color: var(--primary);
+    }
+
+    a .menu_title {
+        margin-left: 5px;
+        color: var(--text-gray);
+    }
+
+    a .toggleIcon {
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: flex-end;
+        flex: 1;
+    }
+
+    a.active {
+        background-color: var(--bg-gray);
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 5rem;
+
+        &::before {
+            width: 0.5rem;
+        }
+
+        .toggleIcon svg {
+            transform: rotate(90deg);
+        }
+    }
+
+    .submenu {
+        padding-left: 0;
+
+        .submenu_item a {
+            position: relative;
+            padding-left: 50px;
+            color: var(--text-gray);
+            display: flex;
+            justify-content: space-between;
+            color: var(--green);
+
+
+            &:hover {
+                color: var(--primary);
+            }
+
+            &::before {
+                content: "";
+                height: 1.5px;
+                width: 5px;
+                background: var(--text-gray);
+                opacity: 0.5;
+                position: absolute;
+                left: 30px;
+                top: 50%;
+                transform: translateY(-50%);
+                -webkit-transition: all 0.5s;
+                -ms-transition: all 0.5s;
+                transition: all 0.5s;
+            }
+        }
+    }
+
+    ul[data-hidden="true"] {
+        height: 0;
+        overflow: hidden;
+        transition: all 0.5s;
+    }
+
+    ul[data-hidden="false"] {
+        height: auto;
+        transition: all 0.5s;
+    }
+}
