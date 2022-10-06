@@ -7,6 +7,8 @@
   --white: #fff;
   --primary: #451b9b;
   --bg-gray: rgba(136, 108, 192, 0.1);
+  --green: #09BD3C;
+  --text-gray: #737b8b;
 }
 
 html,
@@ -33,6 +35,14 @@ a:hover {
 
 .bg-primary {
   background-color: var(--primary) !important;
+}
+
+.bg-primary-2 {
+  background-color: #3d087be0 !important;
+}
+
+.text-success {
+  color: var(--green) !important;
 }
 
 #header {
@@ -87,8 +97,7 @@ main .main_content {
   min-height: 100vh;
 }
 
-main .main_content .wrapper {
-}
+main .main_content .wrapper {}
 
 .custom_container {
   background-color: #fff;
@@ -113,7 +122,7 @@ main .main_content .wrapper {
       margin: 10px 0;
 
       .menu_title,
-      .menu_title + * {
+      .menu_title+* {
         display: none !important;
       }
 
@@ -148,7 +157,7 @@ main {
   }
 
   #left_navbar {
-    //  width: 238px;
+      //width: 238px;
     .logo h2 {
       font-size: 1.5rem;
       font-weight: 600;

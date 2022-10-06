@@ -1,0 +1,23 @@
+.product {
+  p {
+    font-size: 11px;
+  }
+
+  .form_control {
+    font-size: 12px;
+    border: 1px solid #eee;
+    height: 43px;
+    border-radius: 15px;
+
+    :last-child {
+      color: red;
+    }
+    :focus {
+      border: 1px solid #451b9b;
+    }
+  }
+  .button_close {
+    font-size: 12px;
+    border-radius: 20px !important;
+  }
+}
