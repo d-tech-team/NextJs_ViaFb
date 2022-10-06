@@ -1,9 +1,12 @@
 import Image from 'next/image'
 import React from 'react'
-import { Card, ListGroup } from 'react-bootstrap'
+import { Button, Card, ListGroup } from 'react-bootstrap'
+import ModalProduct from '../ModalProduct';
 import styles from './index.module.scss'
 
 function Product({ product }) {
+    const [modalShow, setModalShow] = React.useState(false);
+
     return (
         <Card className={styles.product}>
             <Card.Header className={`${styles.title} bg-primary-2`}>{product.title}</Card.Header>
@@ -69,6 +72,13 @@ function Product({ product }) {
                         </ListGroup.Item>
                     </ListGroup>
                 </Card.Text>
+                <div className={styles.btn_order}>
+                    <Button variant='success' onClick={() => setModalShow(true)}>Mua Hàng</Button>
+                    <ModalProduct
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                    />
+                </div>
             </Card.Body>
         </Card>
     )
