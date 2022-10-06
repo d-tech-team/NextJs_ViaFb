@@ -52,52 +52,32 @@ const menus = [
                 slug: '4'
             },
             {
-                title: 'Via VN',
+                title: 'Via VN4',
                 slug: '5'
             },
             {
-                title: 'Via VN',
+                title: 'Via VN5',
                 slug: '6'
             },
             {
-                title: 'Via VN',
+                title: 'Via VN6',
                 slug: '7'
             },
             {
-                title: 'Via VN',
+                title: 'Via VN7',
                 slug: '8'
             },
             {
-                title: 'Via VN',
+                title: 'Via VN8',
                 slug: '9'
             },
             {
-                title: 'Via VN',
+                title: 'Via VN9',
                 slug: '10'
             },
             {
-                title: 'Via VN',
+                title: 'Via VN10',
                 slug: '11'
-            },
-            {
-                title: 'Via VN',
-                slug: '12'
-            },
-            {
-                title: 'Via VN',
-                slug: '13'
-            },
-            {
-                title: 'Via VN',
-                slug: '14'
-            },
-            {
-                title: 'Via VN',
-                slug: '15'
-            },
-            {
-                title: 'Via VN',
-                slug: '16'
             },
         ]
     },

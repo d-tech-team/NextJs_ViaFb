@@ -35,6 +35,7 @@
     a .menu_title {
         margin-left: 5px;
         color: var(--text-gray);
+        
     }
 
     a .toggleIcon {
@@ -100,5 +101,12 @@
     ul[data-hidden="false"] {
         height: auto;
         transition: all 0.5s;
+    }
+
+    .menu_subtitle {
+        font-size: 0.75rem;
+        margin-left: 5px;
+        font-weight: 400;
+        color: #759791;
     }
 }
