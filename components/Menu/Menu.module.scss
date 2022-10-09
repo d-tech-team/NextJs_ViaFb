@@ -1,29 +1,96 @@
-.logo_wrap {
-    width: 30px;
-    height: 30px;
-    position: relative;
-}
+// #left_navbar {
+//     width: var(--navbar-width);
+//     position: fixed;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     background-color: var(--white);
 
-.menu {
-    padding-left: 0;
-    display: flex;
-    flex-direction: column;
-    padding-right: 20px;
-    overflow-y: scroll;
-    height: 100%;
+//     .logo {
+//         height: var(--header-height);
+//         padding: 0 26px;
+//     }
 
-    &::-webkit-scrollbar-track {
-        background-color: #F5F5F5;
-        border-radius: 5px;
-    }
+//     .logo a {
+//         display: flex;
+//         align-items: center;
+//         height: 100%;
+//     }
 
-    &::-webkit-scrollbar {
-        width: 5px;
-        background-color: #F5F5F5;
-    }
+//     .logo h2 {
+//         text-transform: uppercase;
+//         margin-left: 10px;
+//         font-weight: 700;
+//         font-size: 2.5rem;
+//         color: #4e3f6b;
+//         margin-top: 10px;
+//     }
 
-    &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background: var(--primary);
-    }
-}
+//     .logo_img {
+//         width: 30px;
+//         height: 30px;
+//         position: relative;
+//     }
+
+//     .menu_list {
+//         padding-left: 0;
+//         display: flex;
+//         flex-direction: column;
+//         padding-right: 20px;
+//         overflow-y: scroll;
+//         height: 100%;
+
+//         &::-webkit-scrollbar-track {
+//             border-radius: 5px;
+//         }
+
+//         &::-webkit-scrollbar {
+//             width: 5px;
+//         }
+
+//         &::-webkit-scrollbar-thumb {
+//             border-radius: 10px;
+//             background: var(--primary);
+//         }
+//     }
+
+// }
+
+
+// :global(.close) {
+//     #left_navbar {
+//         .logo h2 {
+//             display: none;
+//         }
+
+//         .menu_list {
+//             align-items: center;
+//             padding-right: 0;
+//         }
+
+//         .menu_item {
+//             margin: 10px 0;
+
+//             .menu_title,
+//             .menu_title+* {
+//                 display: none !important;
+//             }
+
+//             a {
+//                 width: 60px;
+//                 height: 60px;
+//             }
+
+//             .active,
+//             a:hover {
+//                 border-radius: 50%;
+//                 background-color: var(--bg-gray);
+
+//                 &::before {
+//                     width: 0;
+//                     display: none;
+//                 }
+//             }
+//         }
+//     }
+// }
