@@ -11,8 +11,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { ListGroup } from "react-bootstrap";
 import { MENU_ROUTE } from "../../route/menu";
-import styles from "./Menu.module.scss";
+import ProfileMenu from "../ProfileMenu";
 import MenuItem from "./MenuItem";
 
 const isLogin = true;
@@ -118,25 +119,28 @@ function Menu() {
 
     return (
         <div id="left_navbar">
+            {/* Logo */}
             <div className="logo">
                 <Link href="/">
                     <a>
-                        <div className={styles.logo_wrap}>
+                        <span className="logo_img">
                             <Image src={"/images/logo.png"} alt="logo" layout="fill" />
-                        </div>
+                        </span>
                         <h2>ViaFb.VN</h2>
                     </a>
                 </Link>
             </div>
-            <ul className={styles.menu}>
-                {menus.map((menu, index) =>
+            {/* Menu */}
+            <ListGroup as="ul" variant="flush" className="menu_list">
+                {Array.isArray(menus) && menus.map((menu, index) =>
                     isLogin ? (
                         <MenuItem menu={menu} active={menu.href == asPath} key={index} />
                     ) : (
                         !menu.auth && <MenuItem menu={menu} active={menu.href == asPath} key={index} />
                     )
                 )}
-            </ul>
+            </ListGroup>
+            <ProfileMenu/>
         </div>
     );
 }

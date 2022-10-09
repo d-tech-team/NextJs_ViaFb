@@ -25,7 +25,7 @@ function Layout({ children }) {
     return isShowMenu;
   };
   return (
-    <div id="page" className={!isShowMenu && "close"}>
+    <div id="page" className={!isShowMenu ? "close" : ''}>
       <Header toggleMenu={toggleMenu} isShowMenu={isShowMenu} />
       <Menu />
       <main>
