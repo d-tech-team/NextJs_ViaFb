@@ -1,45 +1,49 @@
 
-
+const domain = process.env.api_base_url;
 export const
     /**
      * Auth Api
      */
-    login = '/auth/login',
-    register = '/auth/register',
-    logout = '/auth/logout',
+    login = domain +  '/auth/login',
+    register = domain +  '/auth/register',
+    logout = domain +  '/auth/logout',
 
     /**
      * User Api
      */
-    getProfile = '/user/me',
-    updateProfile = '/user/me',
-    getListOrder = '/user/me/orders',
-    getMoney = '/user/me/money',
+    getProfile = domain +  '/user/me',
+    updateProfile = domain +  '/user/me',
+    getListOrder = domain +  '/user/me/orders',
+    getMoney = domain +  '/user/me/money',
 
     /**
      * Category Api
      */
-    getListCategory = '/category',
-    getACategory = '/category/:id',
-    getProductInCategory = '/category/:id/products',
+    getListCategory = domain +  '/category',
+    getACategory = function(id) {
+        return domain +  `/category/${id}`
+    },
+    getProductInCategory = function(id) {
+        return domain +  '/category/:id/products';
+    },
 
     /**
      * Product Api
      */
-    getListProduct = '/product',
-    getAProduct = '/products/:id',
-    getCategoryInProduct = '/products/:id/category',
-    getStatusProduct = '/products/:id/status',
-    buyProduct = '/products/:id/buy',
+    getListProduct = domain +  '/product',
+    getAProduct = domain +  '/products/:id',
+    getCategoryInProduct = domain +  '/products/:id/category',
+    getStatusProduct = domain +  '/products/:id/status',
+    buyProduct = domain +  '/products/:id/buy',
 
     /**
      * Order Api
      */
-    getOrderGlobal = '/orders/global',
-    getAOrder = '/orders/:id',
-    getDataOrder = '/orders/:id/data',
+    getOrderGlobal = domain +  '/orders/global',
+    getAOrder = domain +  '/orders/:id',
+    getDataOrder = domain +  '/orders/:id/data',
 
     /**
      * Other Api
      */
-    otp = '/other/totp'
+    otp = domain +  '/other/totp'
