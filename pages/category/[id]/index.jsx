@@ -54,8 +54,10 @@ export default Category;
 // This gets called on every request
 export async function getServerSideProps(context) {
   // Fetch data from external API
+  console.log(context);
   const { id } = context.query;
   const res = await fetch(getProductInCategory(id));
+  console.log(res);
   if (!res.ok) {
     return {
       notFound: true,

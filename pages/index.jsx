@@ -141,11 +141,18 @@ export default function Home({ products }) {
 
 
 // This gets called on every request
-export async function getServerSideProps() {
+// This gets called on every request
+export async function getServerSideProps(context) {
     // Fetch data from external API
-    const res = await fetch('http://localhost:3000/api/products')
-    const products = await res.json()
-
+    const res = await fetch('http://localhost:3000/api/categories/1/products');
+    if (!res.ok) {
+      return {
+        notFound: true,
+      };
+    }
+    const products = await res.json();
+  
+  
     // Pass data to the page via props
-    return { props: { products } }
-}
+    return { props: { products } };
+  }

@@ -18,7 +18,7 @@ function Product({ product }) {
         <Card.Title className={styles.price}>{product.price} VND</Card.Title>
         <Card.Text as="div">
           <p className={styles.available}>
-            Hiện còn : <span className="text-success">{product.available}</span>
+            Hiện còn : <span className="text-success">{product.max_amount}</span>
           </p>
           <ListGroup variant="flush" className={styles.list_property}>
             <ListGroup.Item className={styles.property}>
@@ -115,12 +115,7 @@ function Product({ product }) {
             Mua Hàng
           </Button>
           <ModalProduct
-            product={{
-              title: product.title || "Tên sản phẩm",
-              description: product.description || "Mô tả",
-              price: product.price || 1000,
-              available: product.available || 100,
-            }}
+            product={product}
             show={modalShow}
             onHide={() => setModalShow(false)}
           />

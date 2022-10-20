@@ -1,5 +1,5 @@
 
-const domain = process.env.api_base_url;
+const domain = process.env.api_base_url + '/api';
 export const
     /**
      * Auth Api
@@ -26,7 +26,7 @@ export const
         return domain + `/category/${id}`
     },
     getProductInCategory = function (id) {
-        return domain + '/category/:id/products';
+        return domain + `/categories/${id}/products`;
     },
 
     /**

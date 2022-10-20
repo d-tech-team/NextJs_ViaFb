@@ -13,13 +13,26 @@ import {
 import styles from "./Modal.module.scss";
 
 
-function ModalProduct(props, { product }) {
+function ModalProduct({ product, show, onHide }) {
   const [price, setPrice] = React.useState(product?.price ?? 1000);
   const [total, setTotal] = React.useState(0);
+  const [amount, setAmount] = React.useState(0);
+  const [maxAmountError, setMaxAmountError] = React.useState('');
 
+  const handleChangeAmount = (e) => {
+    let value = e.target.value;
+    if (value <= product.max_amount) {
+      setAmount(value);
+      setTotal(value * price);
+      setMaxAmountError(null);
+    }
+    else {
+      setMaxAmountError('Giới hạn mua là ' + product.max_amount)
+    }
+  }
   return (
     <Modal
-      {...props}
+      show={show}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -38,11 +51,11 @@ function ModalProduct(props, { product }) {
             {product?.description || "Mô tả sản phẩm"}
           </p>
           <p>
-            <FontAwesomeIcon icon={faMagic} /> Hiện còn : 1000{" "}
+            <FontAwesomeIcon icon={faMagic} /> Hiện còn : {product.max_amount}
           </p>
           <p>
             <FontAwesomeIcon icon={faDollarSign} /> Đơn giá :{" "}
-            <strong>10000</strong>
+            <strong>{product.price}</strong>
           </p>
           <p>
             <FontAwesomeIcon icon={faPlusSquare} /> Số lượng cần mua
@@ -51,11 +64,13 @@ function ModalProduct(props, { product }) {
             className={styles.form_control}
             type="number"
             placeholder="Nhập số lượng"
-            onChange={(e) => {
-              setTotal(e.target.value * price);
+            onInput={(e) => {
+              handleChangeAmount(e)
             }}
-            min={0}
+            value={amount}
+
           />
+          {maxAmountError && <p className="mt-2 text-danger">{maxAmountError}</p>}
           <p className="mt-3">Tổng tiền : </p>
           <Form.Control
             className={`${styles.form_control} text-danger`}
@@ -74,7 +89,7 @@ function ModalProduct(props, { product }) {
           <Button
             variant="secondary"
             className={`${styles.button_close} border-danger bg-transparent text-danger`}
-            onClick={props.onHide}
+            onClick={onHide}
           >
             <FontAwesomeIcon icon={faWindowClose} /> Đóng
           </Button>
