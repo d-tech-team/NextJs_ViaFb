@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Header.module.scss";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Dropdown, Nav, NavDropdown } from "react-bootstrap";
 import {
@@ -14,25 +13,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const isLogin = true;
 
-const subMenu = [
-  {
-    title: "Tạo phôi - XMDT",
-    icon: <FontAwesomeIcon icon={faGears} />,
-    href: "/tool",
-    iconColor: "#451B9B",
-  },
-  {
-    title: "Đăng xuất",
-    icon: <FontAwesomeIcon icon={faRightFromBracket} />,
-    href: "/login",
-    iconColor: "#FC2E53",
-  },
-];
-
 function Header({ toggleMenu, isShowMenu }) {
+  const router = useRouter();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
   return (
     <header id="header">
       <div className={styles.header_wrap}>
@@ -54,7 +44,7 @@ function Header({ toggleMenu, isShowMenu }) {
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className={`${styles.item} ${styles.balance}`}>
-                <Nav.Link as={'span'}> Số dư: {100} VND</Nav.Link>
+                <Nav.Link as={"span"}> Số dư: {100} VND</Nav.Link>
               </Nav.Item>
               <NavDropdown
                 className={styles.item}
@@ -68,31 +58,26 @@ function Header({ toggleMenu, isShowMenu }) {
                 }
                 id={styles.dropdown_profile}
               >
-                {subMenu.map((item, index) => (
-                  <NavDropdown.Item
-                    key={index}
-                    className={styles.subMenu}
-                    style={{
-                      color: item.iconColor,
-                    }}
-                  >
-                    {item.icon}
-                    <Link href={item.href}>
-                      <span>{item.title}</span>
-                    </Link>
-                  </NavDropdown.Item>
-                ))}
-                {/* <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.2">
-                  Another action
+                <NavDropdown.Item
+                  key={0}
+                  className={styles.subMenu}
+                  style={{
+                    color: "#451B9B",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faGears} />
+                  <Link href="/tool">Tạo phôi - XMDT</Link>
                 </NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.3">
-                  Something else here
+                <NavDropdown.Item
+                  key={1}
+                  className={styles.subMenu}
+                  style={{
+                    color: "#FC2E53",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faRightFromBracket} />
+                  <Link onClick={handleLogout}>Đăng xuất</Link>
                 </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item eventKey="4.4">
-                  Separated link
-                </NavDropdown.Item> */}
               </NavDropdown>
             </>
           ) : (
