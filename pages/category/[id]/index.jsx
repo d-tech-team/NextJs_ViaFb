@@ -80,9 +80,9 @@ export async function getServerSideProps(context) {
       notFound: true,
     };
   }
-  //const products = await res.json();
+  const products = await res.json();
 
-  const products = getDefaultData();
+  // const products = getDefaultData();
 
   // Pass data to the page via props
   return { props: { products } };

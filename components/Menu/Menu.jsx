@@ -127,23 +127,25 @@ function Menu() {
         </Link>
       </div>
       {/* Menu */}
-      <ListGroup as="ul" variant="flush" className="menu_list">
-        {Array.isArray(menus) &&
-          menus.map((menu, index) =>
-            isLogin ? (
-              <MenuItem menu={menu} active={menu.href == asPath} key={index} />
-            ) : (
-              !menu.auth && (
-                <MenuItem
-                  menu={menu}
-                  active={menu.href == asPath}
-                  key={index}
-                />
+      <div className="menu_wrapper">
+        <ListGroup as="ul" variant="flush" className="menu_list">
+          {Array.isArray(menus) &&
+            menus.map((menu, index) =>
+              isLogin ? (
+                <MenuItem menu={menu} active={menu.href == asPath} key={index} />
+              ) : (
+                !menu.auth && (
+                  <MenuItem
+                    menu={menu}
+                    active={menu.href == asPath}
+                    key={index}
+                  />
+                )
               )
-            )
-          )}
-      </ListGroup>
-      <ProfileMenu />
+            )}
+        </ListGroup>
+        <ProfileMenu />
+      </div>
     </div>
   );
 }
