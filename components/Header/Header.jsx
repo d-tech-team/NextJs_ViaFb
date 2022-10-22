@@ -74,9 +74,10 @@ function Header({ toggleMenu, isShowMenu }) {
                   style={{
                     color: "#FC2E53",
                   }}
+                  onClick={handleLogout}
                 >
                   <FontAwesomeIcon icon={faRightFromBracket} />
-                  <Link onClick={handleLogout}>Đăng xuất</Link>
+                  <Link href={"#"}>Đăng xuất</Link>
                 </NavDropdown.Item>
               </NavDropdown>
             </>

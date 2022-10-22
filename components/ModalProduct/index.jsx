@@ -11,13 +11,15 @@ import {
   faCartPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Modal.module.scss";
-
+import { buyProduct } from "../../pages/api/listRouteApi";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function ModalProduct({ product, show, onHide }) {
   const [price, setPrice] = React.useState(product?.price ?? 1000);
   const [total, setTotal] = React.useState(0);
   const [amount, setAmount] = React.useState(0);
-  const [maxAmountError, setMaxAmountError] = React.useState('');
+  const [maxAmountError, setMaxAmountError] = React.useState("");
 
   const handleChangeAmount = (e) => {
     let value = e.target.value;
@@ -25,17 +27,57 @@ function ModalProduct({ product, show, onHide }) {
       setAmount(value);
       setTotal(value * price);
       setMaxAmountError(null);
+    } else {
+      setMaxAmountError("Giới hạn mua là " + product.max_amount);
     }
-    else {
-      setMaxAmountError('Giới hạn mua là ' + product.max_amount)
+  };
+
+  const handleBuy = async () => {
+    try {
+      // const response = await axios.post(
+      //   buyProduct(product.id),
+      //   { amount },
+      //   {
+      //     headers: {
+      //       Authorization: "Bearer " + localStorage.getItem("token"),
+      //     },
+      //   }
+      // );
+      //response.data.code
+      if (201 === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Thành công",
+          text: 'Bạn đã mua thành công "' + product.title + '"',
+        });
+        onHide();
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Thất bại",
+          // text: response ? response?.data?.message : "Mua thất bại",
+          text: "Mua thất bại",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Thất bại",
+        text: "Có lỗi xảy ra",
+      });
     }
-  }
+  };
+
   return (
     <Modal
       show={show}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      // style={{
+      //   zIndex: 1000,
+      // }}
     >
       <Modal.Body className="p-4">
         <div className={styles.product}>
@@ -65,12 +107,14 @@ function ModalProduct({ product, show, onHide }) {
             type="number"
             placeholder="Nhập số lượng"
             onInput={(e) => {
-              handleChangeAmount(e)
+              handleChangeAmount(e);
             }}
             value={amount}
-
+            min={1}
           />
-          {maxAmountError && <p className="mt-2 text-danger">{maxAmountError}</p>}
+          {maxAmountError && (
+            <p className="mt-2 text-danger">{maxAmountError}</p>
+          )}
           <p className="mt-3">Tổng tiền : </p>
           <Form.Control
             className={`${styles.form_control} text-danger`}
@@ -96,6 +140,7 @@ function ModalProduct({ product, show, onHide }) {
           <Button
             variant="primary"
             className={`${styles.button_buy} border-danger mr-2 bg-transparent text-primary`}
+            onClick={handleBuy}
           >
             <FontAwesomeIcon icon={faCartPlus} /> Mua hàng
           </Button>

@@ -6,47 +6,7 @@ import styles from "../styles/Order.module.scss";
 import moment from "moment";
 import { getListOrder } from "./api/listRouteApi";
 
-export default function Order() {
-  const [data, setData] = useState([]);
-
-  const getDefaultData = () => [
-    {
-      amount: 6,
-      price: 0,
-      order_id: "000000000000000000000000",
-      product_title: "product_title",
-      timestamp: "2000-01-23T04:56:07.000+00:00",
-    },
-    {
-      amount: 6,
-      price: 0,
-      order_id: "000000000000000000000000",
-      product_title: "product_title",
-      timestamp: "2000-01-23T04:56:07.000+00:00",
-    },
-  ];
-
-  useEffect(() => {
-    try {
-      setData(getDefaultData());
-
-      return;
-      const response = axios.get(
-        getListOrder(25, 10),
-        {},
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
-      const { data } = response;
-      if (data.code === 200) {
-        setData(data.data);
-      }
-    } catch (error) {
-      setData(getDefaultData());
-    }
-  }, []);
-
+export default function Order({ histories }) {
   return (
     <>
       <Head>
@@ -60,7 +20,7 @@ export default function Order() {
               Kéo Sang Trái Để Xem Tài Khoản Facebook
             </Card.Header>
             <Card.Body className="p-4">
-              <Table bordered className="table">
+              <Table bordered className="table text-center">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -73,7 +33,7 @@ export default function Order() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item, index) => {
+                  {histories.map((item, index) => {
                     return (
                       <tr key={index}>
                         <td>{index + 1}</td>
@@ -98,4 +58,41 @@ export default function Order() {
       </Row>
     </>
   );
+}
+
+const getDefaultData = () => [
+  {
+    amount: 6,
+    price: 0,
+    order_id: "000000000000000000000000",
+    product_title: "product_title",
+    timestamp: "2000-01-23T04:56:07.000+00:00",
+  },
+  {
+    amount: 6,
+    price: 0,
+    order_id: "000000000000000000000000",
+    product_title: "product_title",
+    timestamp: "2000-01-23T04:56:07.000+00:00",
+  },
+];
+
+export async function getServerSideProps(context) {
+  // Fetch data from external API
+  // const res = await fetch(getListOrder(25,10), {
+  //   headers: {
+  //     Authorization: "Bearer" + localStorage.getItem("token"),
+  //   },
+  // });
+  // if (!res.ok) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
+  // const histories = await res.json();
+
+  const histories = getDefaultData();
+
+  // Pass data to the page via props
+  return { props: { histories } };
 }

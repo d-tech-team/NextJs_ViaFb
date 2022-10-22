@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { MENU_ROUTE } from "../../route/menu";
 import ProfileMenu from "../ProfileMenu";
@@ -23,6 +23,7 @@ const isLogin = true;
 function Menu() {
   const router = useRouter();
   const { asPath } = router;
+  const [subMenu, setSubMenu] = useState(null);
 
   const getDefaultSubMenu = () => [
     {
@@ -30,13 +31,29 @@ function Menu() {
       updated_at: "2000-01-23T04:56:07.000+00:00",
       description: "description",
       created_at: "2000-01-23T04:56:07.000+00:00",
-      id: "000000000000000000000000",
-      title: "title",
+      id: "0000000000000000000000003",
+      title: "title1",
+    },
+    {
+      image: "image",
+      updated_at: "2000-01-23T04:56:07.000+00:00",
+      description: "description",
+      created_at: "2000-01-23T04:56:07.000+00:00",
+      id: "0000000000000000000000002",
+      title: "title2",
+    },
+    {
+      image: "image",
+      updated_at: "2000-01-23T04:56:07.000+00:00",
+      description: "description",
+      created_at: "2000-01-23T04:56:07.000+00:00",
+      id: "0000000000000000000000001",
+      title: "title3",
     },
   ];
 
   useEffect(() => {
-    
+    setSubMenu(getDefaultSubMenu());
   }, []);
 
   const menus = [
@@ -59,52 +76,7 @@ function Menu() {
       href: "#",
       icon: <FontAwesomeIcon icon={faCartArrowDown} />,
       key: "#buy",
-      submenu: [
-        {
-          title: "Via VN",
-          slug: "1",
-        },
-        {
-          title: "Via VN1",
-          slug: "2",
-        },
-        {
-          title: "Via VN2",
-          slug: "3",
-        },
-        {
-          title: "Via VN3",
-          slug: "4",
-        },
-        {
-          title: "Via VN4",
-          slug: "5",
-        },
-        {
-          title: "Via VN5",
-          slug: "6",
-        },
-        {
-          title: "Via VN6",
-          slug: "7",
-        },
-        {
-          title: "Via VN7",
-          slug: "8",
-        },
-        {
-          title: "Via VN8",
-          slug: "9",
-        },
-        {
-          title: "Via VN9",
-          slug: "10",
-        },
-        {
-          title: "Via VN10",
-          slug: "11",
-        },
-      ],
+      submenu: subMenu,
     },
     {
       title: "Chính sách bảo hành",

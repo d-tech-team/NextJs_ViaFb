@@ -35,8 +35,8 @@ export const
     getListProduct = domain + '/product',
     getAProduct = domain + '/products/:id',
     getCategoryInProduct = domain + '/products/:id/category',
-    getStatusProduct = domain + '/products/:id/status',
-    buyProduct = domain + '/products/:id/buy',
+    getStatusProduct = (id) => domain + `/products/${id}/status`,
+    buyProduct = (id) => domain + `/products/${id}/buy`,
 
     /**
      * Order Api
