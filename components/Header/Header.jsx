@@ -23,6 +23,10 @@ function Header({ toggleMenu, isShowMenu }) {
     localStorage.removeItem("token");
     router.push("/login");
   };
+
+
+  
+
   return (
     <header id="header">
       <div className={styles.header_wrap}>
@@ -109,3 +113,10 @@ function Header({ toggleMenu, isShowMenu }) {
 }
 
 export default Header;
+
+export const getServerSideProps = async (context) => {
+
+  return {
+    props: {},
+  };
+};
