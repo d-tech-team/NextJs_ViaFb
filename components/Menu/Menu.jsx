@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
+import { getProfile } from "../../pages/api/listRouteApi";
 import { MENU_ROUTE } from "../../route/menu";
 import ProfileMenu from "../ProfileMenu";
 import MenuItem from "./MenuItem";
@@ -21,6 +22,16 @@ import MenuItem from "./MenuItem";
 const isLogin = true;
 
 function Menu() {
+  const [profile, setProfile] = useState({username: "data"})
+  useEffect(() => {
+    fetch(getProfile)
+      .then((res) => res.json())
+      .then((data) => {
+        setProfile(data)
+      }).catch((err) => {
+        console.log(err);
+      })
+  }, [])
   const router = useRouter();
   const { asPath } = router;
   const [subMenu, setSubMenu] = useState(null);
@@ -144,7 +155,7 @@ function Menu() {
               )
             )}
         </ListGroup>
-        <ProfileMenu />
+        <ProfileMenu profile={profile}/>
       </div>
     </div>
   );

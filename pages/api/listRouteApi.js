@@ -11,7 +11,7 @@ export const
     /**
      * User Api
      */
-    getProfile = domain + '/user/me',
+    getProfile = domain + '/users/me',
     updateProfile = domain + '/user/me',
     getListOrder = (skip, limit) => {
         domain + `/user/me/orders?skip=${skip}&limit=${limit}`

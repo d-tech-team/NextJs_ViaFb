@@ -39,6 +39,7 @@ function Regsiter(props) {
         showAlert("Thành công", "Đăng ký thành công", "success");
         setTimeout(() => {
           router.push("/login");
+          Swal.close();
         }, 2000);
       } else {
         showAlert("Thất bại", response.data.message, "error");

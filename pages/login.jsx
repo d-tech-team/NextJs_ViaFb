@@ -40,6 +40,7 @@ function Login() {
         //localStorage.setItem("token", response.data.token);
         setTimeout(() => {
           router.push("/");
+          Swal.close();
         }, 2000);
       } else {
         showAlert("Thất bại", response.data.message, "error");
