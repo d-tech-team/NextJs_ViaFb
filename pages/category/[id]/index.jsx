@@ -1,14 +1,12 @@
-import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 import { Col, Row } from "react-bootstrap";
-import Product from "../../../components/Product";
-import ProductAndHistory from "../../../components/ProductAndHistory";
-import { getProductInCategory, getACategory } from "../../api/listRouteApi";
-import { Promise } from "bluebird";
+import History from "../../../components/History";
+import ProductByCategory from "../../../components/ProductByCategory";
+import { getProductInCategory } from "../../api/listRouteApi";
 
-function Category({ products, category }) {
+function Category({ products, category, histories }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -27,36 +25,16 @@ function Category({ products, category }) {
       <Head>
         <title>{(category && category?.title) || "Tiêu ddeef"}</title>
       </Head>
-      <ProductAndHistory
-        products={products}
-        histories={[
-          {
-            username: "vo luu binh",
-            product: "Via Philipines Cổ",
-            price: "69,000",
-          },
-          {
-            username: "vo luu binh",
-            product: "Via Philipines Cổ",
-            price: "69,000",
-          },
-          {
-            username: "vo luu binh",
-            product: "Via Philipines Cổ",
-            price: "69,000",
-          },
-          {
-            username: "vo luu binh",
-            product: "Via Philipines Cổ",
-            price: "69,000",
-          },
-          {
-            username: "vo luu binh",
-            product: "Via Philipines Cổ",
-            price: "69,000",
-          },
-        ]}
-      />
+      <Row>
+        <Col xs={12} sm={12} lg={9}>
+          <ProductByCategory category={category} products={products} />
+        </Col>
+        <Col xs={12} sm={12} lg={3}>
+          {/* <Card className="border-0 shadow-sm rounded"> */}
+          <History histories={histories}/>
+          {/* </Card> */}
+        </Col>
+      </Row>
     </>
   );
 }
@@ -96,9 +74,8 @@ export async function getServerSideProps(context) {
     {},
     {
       headers: {
-        Authorization: `Bearer ${
-          typeof window !== "undefined" ? localStorage.getItem("token") : null
-        }`,
+        Authorization: `Bearer ${typeof window !== "undefined" ? localStorage.getItem("token") : null
+          }`,
       },
     }
   );
@@ -119,7 +96,34 @@ export async function getServerSideProps(context) {
   // }
   // const category = await resCategory.json();
   const category = getDefaultCategory();
+  const histories = [
+    {
+      username: "vo luu binh",
+      product: "Via Philipines Cổ",
+      price: "69,000",
+    },
+    {
+      username: "vo luu binh",
+      product: "Via Philipines Cổ",
+      price: "69,000",
+    },
+    {
+      username: "vo luu binh",
+      product: "Via Philipines Cổ",
+      price: "69,000",
+    },
+    {
+      username: "vo luu binh",
+      product: "Via Philipines Cổ",
+      price: "69,000",
+    },
+    {
+      username: "vo luu binh",
+      product: "Via Philipines Cổ",
+      price: "69,000",
+    },
+  ]
 
   // Pass data to the page via props
-  return { props: { products, category } };
+  return { props: { products, category, histories } };
 }

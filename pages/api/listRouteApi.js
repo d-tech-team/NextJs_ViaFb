@@ -22,6 +22,7 @@ export const
      * Category Api
      */
     getListCategory = domain + '/category',
+    getCategoriesWithProduct = domain + '/categories/all',
     getACategory = function (id) {
         return domain + `/category/${id}`
     },
