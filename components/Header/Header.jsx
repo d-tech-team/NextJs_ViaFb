@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { MENU_ROUTE } from "../../route/menu";
 
 const isLogin = true;
 
@@ -25,7 +26,7 @@ function Header({ toggleMenu, isShowMenu }) {
   };
 
 
-  
+
 
   return (
     <header id="header">
@@ -42,10 +43,12 @@ function Header({ toggleMenu, isShowMenu }) {
           {isLogin ? (
             <>
               <Nav.Item className={`${styles.item} ${styles.deposit}`}>
-                <Nav.Link>
-                  <FontAwesomeIcon icon={faWallet} />
-                  Nạp Tiền
-                </Nav.Link>
+                <Link href={MENU_ROUTE.deposit} passHref>
+                  <Nav.Link>
+                    <FontAwesomeIcon icon={faWallet} />
+                    Nạp Tiền
+                  </Nav.Link>
+                </Link>
               </Nav.Item>
               <Nav.Item className={`${styles.item} ${styles.balance}`}>
                 <Nav.Link as={"span"}> Số dư: {100} VND</Nav.Link>
