@@ -60,11 +60,12 @@ function Deposit({ payments, history }) {
           onSelect={(k) => setKey(k)}
           className="mb-3"
         >
-          {payments.map((payment) => (
+          {payments.map((payment, i) => (
             <Tab
               className={styles.tab1}
               eventKey="bank"
               title={<TabIcon icon={payment.icon} />}
+              key={i}
             >
               <Row>
                 <Col xs={12} md={6}>
@@ -158,12 +159,14 @@ function Deposit({ payments, history }) {
             </thead>
             <tbody>
               {history.map((item, index) => (
-                <tr>
+                <tr key={index}>
                   <td>{++index}</td>
                   <td>{item.description}</td>
                   <td>{item.amount}</td>
                   <td>{getType(item.type)}</td>
-                  <td>{ moment(item.created_at).format('HH:mm:ss DD/MM/yyyy')}</td>
+                  <td>
+                    {moment(item.created_at).format("HH:mm:ss DD/MM/yyyy")}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -179,14 +182,18 @@ export default Deposit;
 export async function getServerSideProps(context) {
   const res = await fetch(getPayment, {
     headers: {
-      Authorization: `Bearer ${context.req.cookies.token}`,
+      Authorization: `Bearer ${
+        typeof window !== "undefined" ? sessionStorage.getItem("token") : null
+      }`,
     },
   });
   const payments = await res.json();
 
   const historyTransaction = await fetch(getTransaction, {
     headers: {
-      Authorization: `Bearer ${context.req.cookies.token}`,
+      Authorization: `Bearer ${
+        typeof window !== "undefined" ? sessionStorage.getItem("token") : null
+      }`,
     },
   });
 

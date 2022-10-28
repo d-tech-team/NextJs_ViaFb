@@ -81,7 +81,9 @@ export async function getServerSideProps(context) {
   // Fetch data from external API
   const res = await fetch(getListOrder(25, 10), {
     headers: {
-      Authorization: "Bearer" + " " + context.req.cookies.token,
+      Authorization: `Bearer ${
+        typeof window !== "undefined" ? sessionStorage.getItem("token") : null
+      }`,
     },
   });
   if (!res.ok) {

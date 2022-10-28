@@ -3,14 +3,17 @@ import { Container } from "react-bootstrap";
 import Header from "./Header/Header";
 import Menu from "./Menu/Menu";
 import Footer from "./Footer/Footer";
+import { useRouter } from "next/router";
 
 function Layout({ children }) {
   const [isShowMenu, setShowMenu] = useState(true);
   const [deviceSize, changeDeviceSize] = useState(null);
+  // const router = useHis();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token && typeof window != "undefined") {
+      // router.push("/login");
       window.location.href = "/login";
     }
   }, []);

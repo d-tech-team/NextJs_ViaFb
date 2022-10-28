@@ -178,6 +178,7 @@ export default function Home({ categories, histories }) {
 export async function getServerSideProps(context) {
   // Fetch data from external API
   const res = await fetch(getCategoriesWithProduct);
+  console.log(res);
   if (!res.ok) {
     return {
       notFound: true,
