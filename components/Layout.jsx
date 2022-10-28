@@ -7,6 +7,14 @@ import Footer from "./Footer/Footer";
 function Layout({ children }) {
   const [isShowMenu, setShowMenu] = useState(true);
   const [deviceSize, changeDeviceSize] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token && typeof window != "undefined") {
+      window.location.href = "/login";
+    }
+  }, []);
+
   useEffect(() => {
     if (typeof window != "undefined") {
       window.addEventListener("resize", function () {
@@ -25,7 +33,7 @@ function Layout({ children }) {
     return isShowMenu;
   };
   return (
-    <div id="page" className={!isShowMenu ? "close" : ''}>
+    <div id="page" className={!isShowMenu ? "close" : ""}>
       <Header toggleMenu={toggleMenu} isShowMenu={isShowMenu} />
       <Menu />
       <main>

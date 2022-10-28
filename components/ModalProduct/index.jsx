@@ -14,6 +14,9 @@ import styles from "./Modal.module.scss";
 import { buyProduct } from "../../pages/api/listRouteApi";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 function ModalProduct({ product, show, onHide }) {
   const [price, setPrice] = React.useState(product?.price ?? 1000);
@@ -34,37 +37,29 @@ function ModalProduct({ product, show, onHide }) {
 
   const handleBuy = async () => {
     try {
-      // const response = await axios.post(
-      //   buyProduct(product.id),
-      //   { amount },
-      //   {
-      //     headers: {
-      //       Authorization: "Bearer " + localStorage.getItem("token"),
-      //     },
-      //   }
-      // );
-      //response.data.code
-      if (201 === 200) {
+      const response = await axios.post(
+        buyProduct(product.id),
+        { amount },
+        {
+          headers: {
+            Authorization: "Bearer " + cookies.get("token"),
+          },
+        }
+      );
+      if (response.status === 200) {
         Swal.fire({
           icon: "success",
           title: "Thành công",
           text: 'Bạn đã mua thành công "' + product.title + '"',
         });
         onHide();
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Thất bại",
-          // text: response ? response?.data?.message : "Mua thất bại",
-          text: "Mua thất bại",
-        });
       }
     } catch (error) {
       console.log(error);
       Swal.fire({
         icon: "error",
         title: "Thất bại",
-        text: "Có lỗi xảy ra",
+        text: error?.response?.data?.message,
       });
     }
   };

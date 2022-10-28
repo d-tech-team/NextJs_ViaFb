@@ -1,29 +1,27 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import History from "../../../components/History";
 import ProductByCategory from "../../../components/ProductByCategory";
-import { getACategory, getProductInCategory } from "../../api/listRouteApi";
+import {
+  getACategory,
+  getProductInCategory,
+  getHistory,
+  getAProduct,
+} from "../../api/listRouteApi";
 
 function Category({ products, category, histories }) {
   const router = useRouter();
-  const { id } = router.query;
 
-  // useEffect(async() => {
-  //   if(id) {
-  //     axios.get(getACategory(id),{},{
-  //       headers: {
-  //         "Authorization": `Bearer ${token}`
-  //       }
-  //     })
-  //   }
-  // }, [id]);
+  useEffect(() => {
+    console.log("products", products);
+  }, []);
 
   return (
     <>
       <Head>
-        <title>{(category && category?.title) || "Tiêu ddeef"}</title>
+        <title>{(category && category?.title) || "Tiêu đề"}</title>
       </Head>
       <Row>
         <Col xs={12} sm={12} lg={9}>
@@ -69,27 +67,20 @@ const getDefaultCategory = () => ({
 export async function getServerSideProps(context) {
   // Fetch data from external API
   const { id } = context.query;
-  const res = await fetch(
-    getProductInCategory(id),
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${typeof window !== "undefined" ? localStorage.getItem("token") : null
-          }`,
-      },
-    }
-  );
+  const res = await fetch(getProductInCategory(id), {
+    headers: {
+      Authorization: `Bearer ${context.req.cookies.token}`,
+    },
+  });
   if (!res.ok) {
     return {
       notFound: true,
     };
   }
   const products = await res.json();
-  // const products = getDefaultData();
 
   // Category
   const resCategory = await fetch(getACategory(id));
-  console.log(resCategory);
 
   if (!resCategory.ok) {
     return {
@@ -98,34 +89,15 @@ export async function getServerSideProps(context) {
   }
   const category = await resCategory.json();
 
-  // const category = getDefaultCategory();
-  const histories = [
-    {
-      username: "vo luu binh",
-      product: "Via Philipines Cổ",
-      price: "69,000",
-    },
-    {
-      username: "vo luu binh",
-      product: "Via Philipines Cổ",
-      price: "69,000",
-    },
-    {
-      username: "vo luu binh",
-      product: "Via Philipines Cổ",
-      price: "69,000",
-    },
-    {
-      username: "vo luu binh",
-      product: "Via Philipines Cổ",
-      price: "69,000",
-    },
-    {
-      username: "vo luu binh",
-      product: "Via Philipines Cổ",
-      price: "69,000",
-    },
-  ]
+  const resHistory = await fetch(getHistory);
+
+  if (!resHistory.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  let histories = await resHistory.json();
 
   // Pass data to the page via props
   return { props: { products, category, histories } };

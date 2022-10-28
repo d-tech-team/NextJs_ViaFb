@@ -33,19 +33,18 @@ function Regsiter(props) {
 
   const onSubmit = async () => {
     try {
-      // const response = await axios.post(register, value);
-      // const { data } = response;
-      if (201 == 201) {
+      const response = await axios.post(register, value);
+      const { status } = response;
+      if (status == 201) {
         showAlert("Thành công", "Đăng ký thành công", "success");
         setTimeout(() => {
           router.push("/login");
           Swal.close();
         }, 2000);
-      } else {
-        showAlert("Thất bại", response.data.message, "error");
       }
     } catch (error) {
-      showAlert("Thất bại", "Có lỗi xảy ra", "error");
+      console.log(error);
+      showAlert("Thất bại", error.response.data.message, "error");
     }
   };
 
@@ -123,9 +122,10 @@ function Regsiter(props) {
                 required
                 onChange={onInput}
                 name="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               />
               <Form.Control.Feedback type="invalid" className={styles.feedback}>
-                Please enter a password.
+                Password is empty or not strong.
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>

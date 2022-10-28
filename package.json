@@ -29,7 +29,8 @@
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
     "sass": "^1.55.0",
-    "sweetalert2": "^11.6.0"
+    "sweetalert2": "^11.6.0",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "eslint": "8.24.0",

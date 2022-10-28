@@ -9,6 +9,7 @@ import {
   faWallet,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -22,28 +23,33 @@ import MenuItem from "./MenuItem";
 const isLogin = true;
 
 function Menu() {
-  const [profile, setProfile] = useState({ username: "data" })
+  const [profile, setProfile] = useState({ username: "data" });
   const router = useRouter();
   const { asPath } = router;
   const [subMenu, setSubMenu] = useState(null);
 
   // Fetch api user
   useEffect(() => {
-    fetch(getProfile)
+    fetch(getProfile, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        setProfile(data)
-      }).catch((err) => {
-        console.log(err);
+        setProfile(data);
       })
-  }, [])
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   // Fetch api categories
   useEffect(() => {
     fetch(getListCategory)
       .then((res) => res.json())
       .then((data) => {
-        setSubMenu(data)
+        setSubMenu(data);
       });
   }, []);
 
@@ -79,11 +85,11 @@ function Menu() {
       href: MENU_ROUTE.order,
       icon: <FontAwesomeIcon icon={faHistory} />,
     },
-    {
-      title: "Tin tức",
-      href: MENU_ROUTE.blogs,
-      icon: <FontAwesomeIcon icon={faNewspaper} />,
-    },
+    // {
+    //   title: "Tin tức",
+    //   href: MENU_ROUTE.blogs,
+    //   icon: <FontAwesomeIcon icon={faNewspaper} />,
+    // },
     {
       title: "Zalo Admin",
       href: "https://zaloweb.me",
@@ -123,7 +129,11 @@ function Menu() {
           {Array.isArray(menus) &&
             menus.map((menu, index) =>
               isLogin ? (
-                <MenuItem menu={menu} active={menu.href == asPath} key={index} />
+                <MenuItem
+                  menu={menu}
+                  active={menu.href == asPath}
+                  key={index}
+                />
               ) : (
                 !menu.auth && (
                   <MenuItem

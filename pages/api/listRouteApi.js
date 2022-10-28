@@ -1,10 +1,10 @@
 
-const domain = process.env.api_base_url + '/api';
+const domain = process.env.api_base_url;
 export const
     /**
      * Auth Api
      */
-    login = domain + '/auth/login',
+    login = domain + '/auth/login?token=full',
     register = domain + '/auth/register',
     logout = domain + '/auth/logout',
 
@@ -13,10 +13,11 @@ export const
      */
     getProfile = domain + '/users/me',
     updateProfile = domain + '/user/me',
-    getListOrder = (skip, limit) => {
-        domain + `/user/me/orders?skip=${skip}&limit=${limit}`
-    },
+    getListOrder = (skip, limit) =>
+        domain + `/users/me/orders?skip=${skip}&limit=${limit}`
+    ,
     getMoney = domain + '/user/me/money',
+    getTransaction = domain + '/users/me/transactions',
 
     /**
      * Category Api
@@ -29,6 +30,7 @@ export const
     getProductInCategory = function (id) {
         return domain + `/categories/${id}/products`;
     },
+
 
     /**
      * Product Api
@@ -45,8 +47,15 @@ export const
     getOrderGlobal = domain + '/orders/global',
     getAOrder = domain + '/orders/:id',
     getDataOrder = domain + '/orders/:id/data',
+    getHistory = domain + '/orders/broadcast',
 
     /**
      * Other Api
      */
-    otp = domain + '/other/totp'
+    otp = domain + '/other/totp',
+
+    /**
+     * Global Api
+     */
+    getNotification = domain + '/notification',
+    getPayment = domain + '/payments'

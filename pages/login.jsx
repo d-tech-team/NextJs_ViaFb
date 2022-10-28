@@ -9,6 +9,9 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { login } from "./api/listRouteApi";
 import axios from "axios";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 function Login() {
   const [validated, setValidated] = useState(false);
@@ -33,20 +36,18 @@ function Login() {
 
   const onSubmit = async () => {
     try {
-      // const response = await axios.post(login, value);
-      // const { data } = response;
-      if (200 == 200) {
+      const response = await axios.post(login, value);
+      if (response.status == 200) {
         showAlert("Thành công", "Đăng nhập thành công", "success");
-        //localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.token);
+        cookies.set("token", response.data.token, { path: "/" });
         setTimeout(() => {
           router.push("/");
           Swal.close();
         }, 2000);
-      } else {
-        showAlert("Thất bại", response.data.message, "error");
       }
     } catch (error) {
-      showAlert("Thất bại", "Có lỗi xảy ra", "error");
+      showAlert("Thất bại", error?.response?.data?.message, "error");
     }
   };
 
@@ -92,6 +93,7 @@ function Login() {
                 required
                 onChange={onInput}
                 name="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               />
               <Form.Control.Feedback type="invalid" className={styles.feedback}>
                 Please enter a password.

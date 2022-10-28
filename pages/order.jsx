@@ -79,20 +79,18 @@ const getDefaultData = () => [
 
 export async function getServerSideProps(context) {
   // Fetch data from external API
-  // const res = await fetch(getListOrder(25,10), {
-  //   headers: {
-  //     Authorization: "Bearer" + localStorage.getItem("token"),
-  //   },
-  // });
-  // if (!res.ok) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
-  // const histories = await res.json();
-
-  const histories = getDefaultData();
-
+  const res = await fetch(getListOrder(25, 10), {
+    headers: {
+      Authorization: "Bearer" + " " + context.req.cookies.token,
+    },
+  });
+  if (!res.ok) {
+    return {
+      notFound: true,
+    };
+  }
+  let histories = await res.json();
+  histories = histories.data ?? [];
   // Pass data to the page via props
   return { props: { histories } };
 }
