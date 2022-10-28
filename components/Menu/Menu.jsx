@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
-import { getProfile } from "../../pages/api/listRouteApi";
+import { getListCategory, getProfile } from "../../pages/api/listRouteApi";
 import { MENU_ROUTE } from "../../route/menu";
 import ProfileMenu from "../ProfileMenu";
 import MenuItem from "./MenuItem";
@@ -22,7 +22,12 @@ import MenuItem from "./MenuItem";
 const isLogin = true;
 
 function Menu() {
-  const [profile, setProfile] = useState({username: "data"})
+  const [profile, setProfile] = useState({ username: "data" })
+  const router = useRouter();
+  const { asPath } = router;
+  const [subMenu, setSubMenu] = useState(null);
+
+  // Fetch api user
   useEffect(() => {
     fetch(getProfile)
       .then((res) => res.json())
@@ -32,39 +37,14 @@ function Menu() {
         console.log(err);
       })
   }, [])
-  const router = useRouter();
-  const { asPath } = router;
-  const [subMenu, setSubMenu] = useState(null);
 
-  const getDefaultSubMenu = () => [
-    {
-      image: "image",
-      updated_at: "2000-01-23T04:56:07.000+00:00",
-      description: "description",
-      created_at: "2000-01-23T04:56:07.000+00:00",
-      id: "0000000000000000000000003",
-      title: "title1",
-    },
-    {
-      image: "image",
-      updated_at: "2000-01-23T04:56:07.000+00:00",
-      description: "description",
-      created_at: "2000-01-23T04:56:07.000+00:00",
-      id: "0000000000000000000000002",
-      title: "title2",
-    },
-    {
-      image: "image",
-      updated_at: "2000-01-23T04:56:07.000+00:00",
-      description: "description",
-      created_at: "2000-01-23T04:56:07.000+00:00",
-      id: "0000000000000000000000001",
-      title: "title3",
-    },
-  ];
-
+  // Fetch api categories
   useEffect(() => {
-    setSubMenu(getDefaultSubMenu());
+    fetch(getListCategory)
+      .then((res) => res.json())
+      .then((data) => {
+        setSubMenu(data)
+      });
   }, []);
 
   const menus = [
@@ -155,7 +135,7 @@ function Menu() {
               )
             )}
         </ListGroup>
-        <ProfileMenu profile={profile}/>
+        <ProfileMenu profile={profile} />
       </div>
     </div>
   );

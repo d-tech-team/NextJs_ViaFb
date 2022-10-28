@@ -9,7 +9,8 @@ function SubMenu({ subMenu, show }) {
     <ListGroup variant="flush" className="submenu" data-show={show}>
       {Array.isArray(subMenu) &&
         subMenu.map((submenu, index) => (
-          <Link
+          !subMenu.is_unlisted && !subMenu.is_deleted &&
+          (<Link
             key={index}
             href={`${MENU_ROUTE.category}/${submenu.id}`}
             passHref={true}
@@ -20,7 +21,7 @@ function SubMenu({ subMenu, show }) {
               </span>
               ✅
             </ListGroup.Item>
-          </Link>
+          </Link>)
         ))}
     </ListGroup>
   );

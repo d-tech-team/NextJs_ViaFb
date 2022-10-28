@@ -4,7 +4,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import History from "../../../components/History";
 import ProductByCategory from "../../../components/ProductByCategory";
-import { getProductInCategory } from "../../api/listRouteApi";
+import { getACategory, getProductInCategory } from "../../api/listRouteApi";
 
 function Category({ products, category, histories }) {
   const router = useRouter();
@@ -31,7 +31,7 @@ function Category({ products, category, histories }) {
         </Col>
         <Col xs={12} sm={12} lg={3}>
           {/* <Card className="border-0 shadow-sm rounded"> */}
-          <History histories={histories}/>
+          <History histories={histories} />
           {/* </Card> */}
         </Col>
       </Row>
@@ -84,18 +84,21 @@ export async function getServerSideProps(context) {
       notFound: true,
     };
   }
+  const products = await res.json();
+  // const products = getDefaultData();
 
-  // const products = await res.json();
-  const products = getDefaultData();
+  // Category
+  const resCategory = await fetch(getACategory(id));
+  console.log(resCategory);
 
-  // const resCategory = await fetch(getACategory(id));
-  // if (!resCategory.ok) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
-  // const category = await resCategory.json();
-  const category = getDefaultCategory();
+  if (!resCategory.ok) {
+    return {
+      notFound: true,
+    };
+  }
+  const category = await resCategory.json();
+
+  // const category = getDefaultCategory();
   const histories = [
     {
       username: "vo luu binh",

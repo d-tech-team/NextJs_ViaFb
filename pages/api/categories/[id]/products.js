@@ -1,49 +1,61 @@
 const products = [
     {
+        "id": "000000000000000000000000",
+        "title": "string",
+        "description": "string",
         "images": [
-            "https:example.com/example.jpg",
             "https:example.com/example.jpg"
         ],
-        "updated_at": "2000-01-23T04:56:07.000+00:00",
-        "price": 10000,
-        "min_amount": 1,
-        "description": "description",
-        "max_amount": 1,
-        "created_at": "2000-01-23T04:56:07.000+00:00",
-        "id": "000000000000000000000000",
-        "title": "title 1",
-        "type": 5
+        "price": 0,
+        "min_amount": 0,
+        "max_amount": 0,
+        "discount": 0,
+        "is_hot_sell": true,
+        "is_unlisted": true,
+        "is_deleted": true,
+        "type": 0,
+        "category": "000000000000000000000000",
+        "created_at": "2022-10-27T15:26:24.267Z",
+        "updated_at": "2022-10-27T15:26:24.267Z"
     },
     {
+        "id": "000000000000000000000000",
+        "title": "string",
+        "description": "string",
         "images": [
-            "https:example.com/example.jpg",
             "https:example.com/example.jpg"
         ],
-        "updated_at": "2000-01-23T04:56:07.000+00:00",
-        "price": 10000,
-        "min_amount": 6,
-        "description": "description",
-        "max_amount": 2,
-        "created_at": "2000-01-23T04:56:07.000+00:00",
-        "id": "000000000000000000000000",
-        "title": "title2",
-        "type": 5
+        "price": 0,
+        "min_amount": 0,
+        "max_amount": 0,
+        "discount": 0,
+        "is_hot_sell": true,
+        "is_unlisted": true,
+        "is_deleted": true,
+        "type": 0,
+        "category": "000000000000000000000000",
+        "created_at": "2022-10-27T15:26:24.267Z",
+        "updated_at": "2022-10-27T15:26:24.267Z"
     },
     {
+        "id": "000000000000000000000000",
+        "title": "string",
+        "description": "string",
         "images": [
-            "https:example.com/example.jpg",
             "https:example.com/example.jpg"
         ],
-        "updated_at": "2000-01-23T04:56:07.000+00:00",
-        "price": 10000,
-        "min_amount": 6,
-        "description": "description",
-        "max_amount": 3,
-        "created_at": "2000-01-23T04:56:07.000+00:00",
-        "id": "000000000000000000000000",
-        "title": "title3",
-        "type": 5
-    },
+        "price": 0,
+        "min_amount": 0,
+        "max_amount": 0,
+        "discount": 0,
+        "is_hot_sell": true,
+        "is_unlisted": true,
+        "is_deleted": true,
+        "type": 0,
+        "category": "000000000000000000000000",
+        "created_at": "2022-10-27T15:26:24.267Z",
+        "updated_at": "2022-10-27T15:26:24.267Z"
+    }
 ]
 
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
