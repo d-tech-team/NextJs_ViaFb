@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { MENU_ROUTE } from "../../route/menu";
+import { MENU_ROUTE } from "../../router/menu";
 import styles from "./index.module.scss";
 import Image from "next/image";
 import { connect } from "react-redux";

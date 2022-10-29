@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { getListCategory, getProfile } from "../../pages/api/listRouteApi";
-import { MENU_ROUTE } from "../../route/menu";
+import { MENU_ROUTE } from "../../router/menu";
 import ProfileMenu from "../ProfileMenu";
 import MenuItem from "./MenuItem";
 

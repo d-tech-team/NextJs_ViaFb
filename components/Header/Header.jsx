@@ -14,7 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { MENU_ROUTE } from "../../route/menu";
+import { MENU_ROUTE } from "../../router/menu";
 import { connect, useDispatch } from "react-redux";
 
 const isLogin = true;

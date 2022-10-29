@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { ListGroup } from "react-bootstrap";
-import { MENU_ROUTE } from "../../../../route/menu";
+import { MENU_ROUTE } from "../../../../router/menu";
 import styles from "./index.module.scss";
 
 function SubMenu({ subMenu, show }) {
