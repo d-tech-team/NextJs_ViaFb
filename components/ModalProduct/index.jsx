@@ -14,15 +14,18 @@ import styles from "./Modal.module.scss";
 import { buyProduct } from "../../pages/api/listRouteApi";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
+import { getProfile } from "../../redux/features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function ModalProduct({ product, show, onHide }) {
   const [price, setPrice] = React.useState(product?.price ?? 1000);
   const [total, setTotal] = React.useState(0);
   const [amount, setAmount] = React.useState(0);
   const [maxAmountError, setMaxAmountError] = React.useState("");
+  const dispatch = useDispatch();
+
+  const token =
+    typeof window !== "undefined" && sessionStorage.getItem("token");
 
   const handleChangeAmount = (e) => {
     let value = e.target.value;
@@ -39,10 +42,10 @@ function ModalProduct({ product, show, onHide }) {
     try {
       const response = await axios.post(
         buyProduct(product.id),
-        { amount },
+        { amount: parseInt(amount) },
         {
           headers: {
-            Authorization: "Bearer " + cookies.get("token"),
+            Authorization: "Bearer " + token,
           },
         }
       );
@@ -52,6 +55,7 @@ function ModalProduct({ product, show, onHide }) {
           title: "Thành công",
           text: 'Bạn đã mua thành công "' + product.title + '"',
         });
+        dispatch(getProfile());
         onHide();
       }
     } catch (error) {

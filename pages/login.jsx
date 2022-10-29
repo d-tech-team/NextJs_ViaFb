@@ -9,14 +9,13 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { login } from "./api/listRouteApi";
 import axios from "axios";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
+import { useDispatch } from "react-redux";
 
 function Login() {
   const [validated, setValidated] = useState(false);
   const [value, setValue] = useState({});
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;

@@ -17,12 +17,13 @@ import { getPayment, getTransaction } from "./api/listRouteApi";
 import axios from "axios";
 import moment from "moment";
 
-function Deposit({ payments, history }) {
+function Deposit() {
   const [key, setKey] = useState("bank");
+  const [payments, setPayment] = useState([]);
+  const [history, setHistory] = useState([]);
 
-  useEffect(() => {
-    console.log(history);
-  }, []);
+  const token =
+    typeof window !== "undefined" && sessionStorage.getItem("token");
 
   const getType = (type) => {
     switch (type) {
@@ -38,6 +39,30 @@ function Deposit({ payments, history }) {
         return "System";
     }
   };
+
+  useEffect(() => {
+    fetch(getPayment, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setPayment(res);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(getTransaction, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setHistory(res.data ?? []);
+      });
+  }, []);
 
   return (
     <div>
@@ -80,7 +105,7 @@ function Deposit({ payments, history }) {
                         <div>
                           <h5>Cách 1: QRCode</h5>
                           <p className="text-black">{payment.description}</p>
-                          <img
+                          <Image
                             src={payment.image}
                             width="100%"
                             alt=""
@@ -178,32 +203,3 @@ function Deposit({ payments, history }) {
 }
 
 export default Deposit;
-
-export async function getServerSideProps(context) {
-  const res = await fetch(getPayment, {
-    headers: {
-      Authorization: `Bearer ${
-        typeof window !== "undefined" ? sessionStorage.getItem("token") : null
-      }`,
-    },
-  });
-  const payments = await res.json();
-
-  const historyTransaction = await fetch(getTransaction, {
-    headers: {
-      Authorization: `Bearer ${
-        typeof window !== "undefined" ? sessionStorage.getItem("token") : null
-      }`,
-    },
-  });
-
-  let history = await historyTransaction.json();
-
-  history = history.data ?? [];
-  return {
-    props: {
-      payments,
-      history,
-    },
-  };
-}

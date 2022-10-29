@@ -11,16 +11,35 @@ import "react-vertical-timeline-component/style.min.css";
 import History from "../components/History";
 import ProductByCategory from "../components/ProductByCategory";
 import styles from "../styles/Home.module.scss";
-import { getCategoriesWithProduct, getNotification } from "./api/listRouteApi";
+import {
+  getCategoriesWithProduct,
+  getNotification,
+  getListCategory,
+  getHistory,
+  getProductInCategory,
+  getAProduct,
+  getStatusProduct,
+} from "./api/listRouteApi";
 export default function Home({ categories, histories }) {
-//   const [noti, setNoti] = useState([]);
-//   useEffect(() => {
-//     setTimeout(() => {
-//       axios.get(getNotification).then((res) => {
-//         console.log(res.data);
-//       });
-//     }, 1000);
-//   }, []);
+  const [noti, setNoti] = useState([]);
+
+  useEffect(() => {
+    getNoti();
+  }, []);
+
+  useEffect(() => {
+    setInterval(() => {
+      getNoti();
+    }, 60000);
+  }, []);
+
+  const getNoti = () => {
+    fetch(getNotification)
+      .then((res) => res.json())
+      .then((res) => {
+        setNoti(res.messages ?? []);
+      });
+  };
 
   return (
     <>
@@ -50,104 +69,28 @@ export default function Home({ categories, histories }) {
             layout={"1-column-left"}
             className={styles.time_line}
           >
-            <VerticalTimelineElement
-              className="vertical-timeline-element--work"
-              contentStyle={{ background: "#FFEDF0", color: "#000" }}
-              contentArrowStyle={{
-                borderRight: "7px solid  #F3F0F8",
-              }}
-              iconStyle={{
-                background: "#FC2E53",
-                color: "#fff",
-                width: "13px",
-                height: "13px",
-                left: "14px",
-                borderSpacing: "20px",
-                borderWidth: "1px",
-              }}
-            >
-              <h6>
-                <u className="text-primary">ViaFB.VN</u> -{" "}
-                <strong className="text-danger">
-                  HỆ THỐNG MUA BÁN VIA FACEBOOK UY TÍN, CHẤT LƯỢNG
-                </strong>
-              </h6>
-            </VerticalTimelineElement>
-            <VerticalTimelineElement
-              className="vertical-timeline-element--work mt-1"
-              contentStyle={{ background: "#F3F0F8", color: "#000" }}
-              contentArrowStyle={{
-                borderRight: "7px solid  #F3F0F8",
-              }}
-              iconStyle={{
-                background: "rgb(69,27,155)",
-                color: "#fff",
-                width: "13px",
-                height: "13px",
-                left: "14px",
-                borderSpacing: "20px",
-                borderWidth: "1px",
-              }}
-            >
-              <h6>
-                * TÀI KHOẢN SAU KHI KHÁCH MUA THÌ KHÁCH TỰ BẢO QUẢN (ĐỔI PASS FB
-                VÀ CẢ PASSMAIL). CHÚNG TÔI KHÔNG CHỊU TRÁCH NHIỆM HÀNG BỊ BACK
-                VỀ SAU. VÌ HÀNG SHOP NHẬP TỪ NHIỀU NGUỒN KHÁC NHAU NÊN KHÔNG THỂ
-                ĐẢM BẢO ĐƯỢC LÀ CÓ BỊ ĐẦU NGUỒN BACK HÀNG HAY KHÔNG. TỐT NHẤT
-                KHÁCH NÊN TỰ BẢO QUẢN TÀI SẢN THUỘC QUYỀN SỞ HỮU CỦA MÌNH. XIN
-                CẢM ƠN
-              </h6>
-            </VerticalTimelineElement>
-            <VerticalTimelineElement
-              className="vertical-timeline-element--work"
-              contentStyle={{ background: "#FFEDF0", color: "#000" }}
-              contentArrowStyle={{
-                borderRight: "7px solid  #F3F0F8",
-              }}
-              iconStyle={{
-                background: "#FC2E53",
-                color: "#fff",
-                width: "13px",
-                height: "13px",
-                left: "14px",
-                borderSpacing: "20px",
-                borderWidth: "1px",
-              }}
-            >
-              <h6 className="text-danger">ANH EM CHÚ Ý:</h6>
-              <h6>
-                Đọc kĩ <strong>Quy trình Đăng Nhập</strong> để tránh việc bị
-                Checkpoint{" "}
-                <a href="">
-                  <strong>ẤN ĐỂ XEM NGAY</strong>
-                </a>
-              </h6>
-            </VerticalTimelineElement>
-            <VerticalTimelineElement
-              className="vertical-timeline-element--work"
-              contentStyle={{ background: "#67F890", color: "#000" }}
-              contentArrowStyle={{
-                borderRight: "7px solid  #F3F0F8",
-              }}
-              iconStyle={{
-                background: "#09BD3C",
-                color: "#fff",
-                width: "13px",
-                height: "13px",
-                left: "14px",
-                borderSpacing: "20px",
-                borderWidth: "1px",
-              }}
-            >
-              <h6 className="text-danger">CHÚ Ý ĐĂNG NHẬP:</h6>
-              <h6>
-                + Vui lòng đăng nhập bằng link{" "}
-                <a href="https://mbasic.facebook.com/">
-                  https://mbasic.facebook.com/
-                </a>{" "}
-                để tránh checkpoint.
-              </h6>
-            </VerticalTimelineElement>
+            {Array.isArray(noti) &&
+              noti.map((item, i) => (
+                <VerticalTimelineElement
+                  className="vertical-timeline-element--work"
+                  contentStyle={{ background: "#FFEDF0", color: "#000" }}
+                  contentArrowStyle={{
+                    borderRight: "7px solid  #F3F0F8",
+                  }}
+                  iconStyle={{
+                    background: "#FC2E53",
+                    color: "#fff",
+                    width: "13px",
+                    height: "13px",
+                    left: "14px",
+                    borderSpacing: "20px",
+                    borderWidth: "1px",
+                  }}
+                  key={i}
+                >
+                  <p>{item}</p>
+                </VerticalTimelineElement>
+              ))}
           </VerticalTimeline>
         </div>
       </Card>
@@ -177,44 +120,64 @@ export default function Home({ categories, histories }) {
 // This gets called on every request
 export async function getServerSideProps(context) {
   // Fetch data from external API
-  const res = await fetch(getCategoriesWithProduct);
-  console.log(res);
+  const res = await fetch(getListCategory);
   if (!res.ok) {
     return {
       notFound: true,
     };
   }
-  const categories = await res.json();
+  let categories = await res.json();
 
-  // const products = [];
-  const histories = [
-    {
-      username: "vo luu binh",
-      product: "Via Philipines Cổ",
-      price: "69,000",
-    },
-    {
-      username: "vo luu binh",
-      product: "Via Philipines Cổ",
-      price: "69,000",
-    },
-    {
-      username: "vo luu binh",
-      product: "Via Philipines Cổ",
-      price: "69,000",
-    },
-    {
-      username: "vo luu binh",
-      product: "Via Philipines Cổ",
-      price: "69,000",
-    },
-    {
-      username: "vo luu binh",
-      product: "Via Philipines Cổ",
-      price: "69,000",
-    },
-  ];
+  categories = await Promise.all(
+    categories.map(async (item) => {
+      let products = await fetch(getProductInCategory(item.id));
+      if (!products.ok) {
+        products = [];
+      }
+      products = await products.json();
+      products = await Promise.all(
+        products.map(async (item1) => {
+          let stt = await fetch(getStatusProduct(item1.id));
+          if (!stt.ok) {
+            stt = [];
+          }
+          stt = await stt.json();
+          return {
+            ...item1,
+            max_amount: stt?.stock ?? 0,
+          };
+        })
+      ).then((res) => res);
+      return {
+        ...item,
+        products,
+      };
+    })
+  ).then((res) => res);
 
+  const resHistory = await fetch(getHistory);
+
+  if (!resHistory.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  let histories = await resHistory.json();
+
+  histories = await Promise.all(
+    histories.map(async (item) => {
+      let product = await fetch(getAProduct(item.product));
+      if (!product.ok) {
+        product = {};
+      }
+      product = await product.json();
+      return {
+        ...item,
+        product: product?.title ?? "title",
+      };
+    })
+  ).then((res) => res);
   // Pass data to the page via props
   return { props: { categories, histories } };
 }

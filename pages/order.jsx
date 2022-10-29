@@ -6,7 +6,24 @@ import styles from "../styles/Order.module.scss";
 import moment from "moment";
 import { getListOrder } from "./api/listRouteApi";
 
-export default function Order({ histories }) {
+export default function Order() {
+  const [histories, setHistory] = useState([]);
+  const token =
+    typeof window !== "undefined" && sessionStorage.getItem("token");
+
+  useEffect(() => {
+    fetch(getListOrder(25, 10), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        setHistory(res.data ?? []);
+      });
+  }, []);
+
   return (
     <>
       <Head>
@@ -58,41 +75,4 @@ export default function Order({ histories }) {
       </Row>
     </>
   );
-}
-
-const getDefaultData = () => [
-  {
-    amount: 6,
-    price: 0,
-    order_id: "000000000000000000000000",
-    product_title: "product_title",
-    timestamp: "2000-01-23T04:56:07.000+00:00",
-  },
-  {
-    amount: 6,
-    price: 0,
-    order_id: "000000000000000000000000",
-    product_title: "product_title",
-    timestamp: "2000-01-23T04:56:07.000+00:00",
-  },
-];
-
-export async function getServerSideProps(context) {
-  // Fetch data from external API
-  const res = await fetch(getListOrder(25, 10), {
-    headers: {
-      Authorization: `Bearer ${
-        typeof window !== "undefined" ? sessionStorage.getItem("token") : null
-      }`,
-    },
-  });
-  if (!res.ok) {
-    return {
-      notFound: true,
-    };
-  }
-  let histories = await res.json();
-  histories = histories.data ?? [];
-  // Pass data to the page via props
-  return { props: { histories } };
 }

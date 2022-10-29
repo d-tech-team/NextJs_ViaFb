@@ -1,22 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container } from "react-bootstrap";
 import Header from "./Header/Header";
 import Menu from "./Menu/Menu";
 import Footer from "./Footer/Footer";
 import { useRouter } from "next/router";
+import { connect, useDispatch } from "react-redux";
+import { getProfile, setUser } from "../redux/features/userSlice";
 
-function Layout({ children }) {
+function Layout({ children, user }) {
   const [isShowMenu, setShowMenu] = useState(true);
   const [deviceSize, changeDeviceSize] = useState(null);
-  // const router = useHis();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const preValue = useRef();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token && typeof window != "undefined") {
-      // router.push("/login");
-      window.location.href = "/login";
+    if (typeof window !== "undefined" && sessionStorage.getItem("token")) {
+      dispatch(getProfile());
     }
   }, []);
+
+  useEffect(() => {
+    preValue.current = user;
+    if (preValue.current !== user) {
+      preValue.current = user;
+      if (!user) {
+        router.push("/login");
+      }
+    }
+  }, [user]);
 
   useEffect(() => {
     if (typeof window != "undefined") {
@@ -49,4 +61,10 @@ function Layout({ children }) {
   );
 }
 
-export default Layout;
+const mapStateToProps = (state) => {
+  return {
+    user: state.default.user,
+  };
+};
+
+export default connect(mapStateToProps)(Layout);

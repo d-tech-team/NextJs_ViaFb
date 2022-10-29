@@ -1,6 +1,7 @@
+import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import History from "../../../components/History";
 import ProductByCategory from "../../../components/ProductByCategory";
@@ -8,16 +9,11 @@ import {
   getACategory,
   getProductInCategory,
   getHistory,
+  getStatusProduct,
   getAProduct,
 } from "../../api/listRouteApi";
 
 function Category({ products, category, histories }) {
-  const router = useRouter();
-
-  useEffect(() => {
-    console.log("products", products);
-  }, []);
-
   return (
     <>
       <Head>
@@ -39,30 +35,6 @@ function Category({ products, category, histories }) {
 
 export default Category;
 
-const getDefaultData = () => [
-  {
-    images: ["https:example.com/example.jpg", "https:example.com/example.jpg"],
-    updated_at: "2000-01-23T04:56:07.000+00:00",
-    price: 1000,
-    min_amount: 6,
-    description: "description",
-    max_amount: 1,
-    created_at: "2000-01-23T04:56:07.000+00:00",
-    id: "000000000000000000000000",
-    title: "title",
-    type: 5,
-  },
-];
-
-const getDefaultCategory = () => ({
-  image: "image",
-  updated_at: "2000-01-23T04:56:07.000+00:00",
-  description: "description",
-  created_at: "2000-01-23T04:56:07.000+00:00",
-  id: "000000000000000000000000",
-  title: "title1",
-});
-
 // This gets called on every request
 export async function getServerSideProps(context) {
   // Fetch data from external API
@@ -79,7 +51,21 @@ export async function getServerSideProps(context) {
       notFound: true,
     };
   }
-  const products = await res.json();
+  let products = await res.json();
+
+  products = await Promise.all(
+    products.map(async (item) => {
+      let stt = await fetch(getStatusProduct(item.id));
+      stt = await stt.json();
+
+      return {
+        ...item,
+        max_amount: stt ? stt.stock : 0,
+      };
+    })
+  ).then((res) => res);
+
+  //console.log(cc);
 
   // Category
   const resCategory = await fetch(getACategory(id));
@@ -100,6 +86,19 @@ export async function getServerSideProps(context) {
   }
 
   let histories = await resHistory.json();
+
+  histories = await Promise.all(
+    histories.map(async (item) => {
+      let product = await fetch(getAProduct(item.product));
+      product = await product.json();
+      return {
+        ...item,
+        product: product ? product.title : "title",
+      };
+    })
+  ).then((res) => res);
+
+  // console.log("histories", histories);
 
   // Pass data to the page via props
   return { props: { products, category, histories } };

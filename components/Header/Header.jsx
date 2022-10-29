@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Header.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Dropdown, Nav, NavDropdown } from "react-bootstrap";
@@ -15,18 +15,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { MENU_ROUTE } from "../../route/menu";
+import { connect, useDispatch } from "react-redux";
 
 const isLogin = true;
 
-function Header({ toggleMenu, isShowMenu }) {
+function Header({ toggleMenu, isShowMenu, user }) {
   const router = useRouter();
+
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     router.push("/login");
   };
-
-
-
 
   return (
     <header id="header">
@@ -51,7 +50,7 @@ function Header({ toggleMenu, isShowMenu }) {
                 </Link>
               </Nav.Item>
               <Nav.Item className={`${styles.item} ${styles.balance}`}>
-                <Nav.Link as={"span"}> Số dư: {100} VND</Nav.Link>
+                <Nav.Link as={"span"}> Số dư: {user?.money} VND</Nav.Link>
               </Nav.Item>
               <NavDropdown
                 className={styles.item}
@@ -115,11 +114,10 @@ function Header({ toggleMenu, isShowMenu }) {
   );
 }
 
-export default Header;
-
-export const getServerSideProps = async (context) => {
-
+const mapStateToProps = (state) => {
   return {
-    props: {},
+    user: state.default.user,
   };
 };
+
+export default connect(mapStateToProps)(Header);
