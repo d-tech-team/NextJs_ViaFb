@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,19 +6,22 @@ import styles from "../styles/Auth.module.scss";
 import DefaultLayout from "../components/defaultLayout";
 import Head from "next/head";
 import axios from "axios";
-import { url as baseUrl } from "./api/baseUrl";
 import { register } from "./api/listRouteApi";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
-function Regsiter() {
+function Regsiter(props) {
   const [validated, setValidated] = useState(false);
   const [value, setValue] = useState({});
+  const router = useRouter();
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     const form = event.currentTarget;
     if (!form.checkValidity()) {
       event.preventDefault();
       event.stopPropagation();
+    } else {
+      event.preventDefault();
       onSubmit();
     }
     setValidated(true);
@@ -29,8 +32,29 @@ function Regsiter() {
   };
 
   const onSubmit = async () => {
-    //const res = await axios.post(`${baseUrl}${register}`, value);
-    console.log(value);
+    try {
+      const response = await axios.post(register, value);
+      const { status } = response;
+      if (status == 201) {
+        showAlert("Thành công", "Đăng ký thành công", "success");
+        setTimeout(() => {
+          router.push("/login");
+          Swal.close();
+        }, 2000);
+      }
+    } catch (error) {
+      console.log(error);
+      showAlert("Thất bại", error.response.data.message, "error");
+    }
+  };
+
+  const showAlert = (title, message, type) => {
+    Swal.fire({
+      title,
+      text: message,
+      icon: type,
+      confirmButtonText: "Ok",
+    });
   };
 
   return (
@@ -78,11 +102,12 @@ function Regsiter() {
               <Form.Label className={styles.label}>Email</Form.Label>
               <Form.Control
                 className={styles.input}
-                type="text"
+                type="email"
                 placeholder="Email"
                 required
                 onChange={onInput}
                 name="email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               />
               <Form.Control.Feedback className={styles.feedback} type="invalid">
                 Please enter a Email.
@@ -97,9 +122,10 @@ function Regsiter() {
                 required
                 onChange={onInput}
                 name="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               />
               <Form.Control.Feedback type="invalid" className={styles.feedback}>
-                Please enter a password.
+                Password is empty or not strong.
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>

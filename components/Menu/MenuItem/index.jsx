@@ -1,10 +1,8 @@
-import { faCaretRight, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React, { useState } from "react";
 import { ListGroup } from "react-bootstrap";
-import { MENU_ROUTE } from "../../../route/menu";
-import styles from "./index.module.scss";
 import SubMenu from "./SubMenu";
 
 function MenuItem({ menu, active }) {

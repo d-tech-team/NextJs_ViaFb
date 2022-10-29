@@ -1,12 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container } from "react-bootstrap";
 import Header from "./Header/Header";
 import Menu from "./Menu/Menu";
 import Footer from "./Footer/Footer";
+import { useRouter } from "next/router";
+import { connect, useDispatch } from "react-redux";
+import { getProfile, setUser } from "../redux/features/userSlice";
 
-function Layout({ children }) {
+function Layout({ children, user }) {
   const [isShowMenu, setShowMenu] = useState(true);
   const [deviceSize, changeDeviceSize] = useState(null);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const preValue = useRef();
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && sessionStorage.getItem("token")) {
+      dispatch(getProfile());
+    }
+  }, []);
+
+  useEffect(() => {
+    preValue.current = user;
+    if (preValue.current !== user) {
+      preValue.current = user;
+      if (!user) {
+        router.push("/login");
+      }
+    }
+  }, [user]);
+
   useEffect(() => {
     if (typeof window != "undefined") {
       window.addEventListener("resize", function () {
@@ -25,7 +48,7 @@ function Layout({ children }) {
     return isShowMenu;
   };
   return (
-    <div id="page" className={!isShowMenu ? "close" : ''}>
+    <div id="page" className={!isShowMenu ? "close" : ""}>
       <Header toggleMenu={toggleMenu} isShowMenu={isShowMenu} />
       <Menu />
       <main>
@@ -38,4 +61,11 @@ function Layout({ children }) {
   );
 }
 
-export default Layout;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(Layout);

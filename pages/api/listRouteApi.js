@@ -1,45 +1,61 @@
 
-
+const domain = process.env.api_base_url;
 export const
     /**
      * Auth Api
      */
-    login = '/auth/login',
-    register = '/auth/register',
-    logout = '/auth/logout',
+    login = domain + '/auth/login?token=full',
+    register = domain + '/auth/register',
+    logout = domain + '/auth/logout',
 
     /**
      * User Api
      */
-    getProfile = '/user/me',
-    updateProfile = '/user/me',
-    getListOrder = '/user/me/orders',
-    getMoney = '/user/me/money',
+    getProfile = domain + '/users/me',
+    updateProfile = domain + '/user/me',
+    getListOrder = (skip, limit) =>
+        domain + `/users/me/orders?skip=${skip}&limit=${limit}`
+    ,
+    getMoney = domain + '/user/me/money',
+    getTransaction = domain + '/users/me/transactions',
 
     /**
      * Category Api
      */
-    getListCategory = '/category',
-    getACategory = '/category/:id',
-    getProductInCategory = '/category/:id/products',
+    getListCategory = domain + '/categories',
+    getCategoriesWithProduct = domain + '/categories/all',
+    getACategory = function (id) {
+        return domain + `/categories/${id}`
+    },
+    getProductInCategory = function (id) {
+        return domain + `/categories/${id}/products`;
+    },
+
 
     /**
      * Product Api
      */
-    getListProduct = '/product',
-    getAProduct = '/products/:id',
-    getCategoryInProduct = '/products/:id/category',
-    getStatusProduct = '/products/:id/status',
-    buyProduct = '/products/:id/buy',
+    getListProduct = domain + '/product',
+    getAProduct = (id) => domain + '/products/' + id,
+    getCategoryInProduct = domain + '/products/:id/category',
+    getStatusProduct = (id) => domain + `/products/${id}/status`,
+    buyProduct = (id) => domain + `/products/${id}/buy`,
 
     /**
      * Order Api
      */
-    getOrderGlobal = '/orders/global',
-    getAOrder = '/orders/:id',
-    getDataOrder = '/orders/:id/data',
+    getOrderGlobal = domain + '/orders/global',
+    getAOrder = domain + '/orders/:id',
+    getDataOrder = domain + '/orders/:id/data',
+    getHistory = domain + '/orders/broadcast',
 
     /**
      * Other Api
      */
-    otp = '/other/totp'
+    otp = domain + '/other/totp',
+
+    /**
+     * Global Api
+     */
+    getNotification = domain + '/notification',
+    getPayment = domain + '/payments'
