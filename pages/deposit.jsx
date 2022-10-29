@@ -85,7 +85,7 @@ function Deposit() {
           onSelect={(k) => setKey(k)}
           className="mb-3"
         >
-          {payments.map((payment, i) => (
+          {Array.isArray(payments) &&  payments.map((payment, i) => (
             <Tab
               className={styles.tab1}
               eventKey="bank"
