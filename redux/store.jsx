@@ -1,12 +1,12 @@
 const { createStore, applyMiddleware, combineReducers } = require("redux");
-const userReducer = require("./features/userSlice");
-const { createWrapper } = require("next-redux-wrapper");
+const { configureStore } = require("@reduxjs/toolkit");
 const thunk = require("redux-thunk").default;
+const { createWrapper } = require("next-redux-wrapper");
+const userReducer = require("./features/userSlice");
+const dataReducer = require("./features/dataSlice");
 
-const store = createStore(combineReducers(userReducer), applyMiddleware(thunk));
+const rootReducer = combineReducers(userReducer, dataReducer);
 
-const makeStore = () => store;
-
-const wrapper = createWrapper(makeStore);
+const store = () => createStore(rootReducer, applyMiddleware(thunk));
 
 module.exports = { store, wrapper };

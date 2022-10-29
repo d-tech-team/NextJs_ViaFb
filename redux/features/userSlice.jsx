@@ -1,7 +1,6 @@
 "use strict";
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 import { getProfile as getUser } from "../../pages/api/listRouteApi";
 const initialState = {
   user: null,
