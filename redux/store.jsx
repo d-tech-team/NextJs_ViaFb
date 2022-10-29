@@ -9,4 +9,6 @@ const rootReducer = combineReducers(userReducer, dataReducer);
 
 const store = () => createStore(rootReducer, applyMiddleware(thunk));
 
+const wrapper = createWrapper(store);
+
 module.exports = { store, wrapper };
