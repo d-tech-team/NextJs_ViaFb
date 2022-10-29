@@ -4,7 +4,7 @@ import { Breadcrumb, Card, Col, Row, Table } from "react-bootstrap";
 import PageTitle from "../components/Breadcumb";
 import styles from "../styles/Order.module.scss";
 import moment from "moment";
-import { getListOrder } from "./api/listRouteApi";
+import { getListOrder, getAProduct } from "./api/listRouteApi";
 
 export default function Order() {
   const [histories, setHistory] = useState([]);
@@ -12,16 +12,35 @@ export default function Order() {
     typeof window !== "undefined" && sessionStorage.getItem("token");
 
   useEffect(() => {
-    fetch(getListOrder(25, 10), {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        setHistory(res.data ?? []);
+    const getHistory = async () => {
+      let list = await fetch(getListOrder(1, 10), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+      if (!list.ok) {
+        list = [];
+      }
+
+      list = await list.json();
+
+      return await Promise.all(
+        Array.isArray(list.data) &&
+          list.data.map(async (item) => {
+            let product = await fetch(getAProduct(item.product));
+            if (!product.ok) {
+              product = [];
+            }
+            product = await product.json();
+            return {
+              ...item,
+              product: product?.title || "",
+            };
+          })
+      ).then((res) => res);
+    };
+
+    getHistory().then((res) => setHistory(res));
   }, []);
 
   return (
@@ -41,7 +60,6 @@ export default function Order() {
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Mã Giao Dịch</th>
                     <th>Sản Phẩm</th>
                     <th>Số Lượng</th>
                     <th>Giá</th>
@@ -54,8 +72,7 @@ export default function Order() {
                     return (
                       <tr key={index}>
                         <td>{index + 1}</td>
-                        <td>{item.order_id}</td>
-                        <td>{item.product_title}</td>
+                        <td>{item.product}</td>
                         <td>{item.amount}</td>
                         <td>{item.price}</td>
                         <td>

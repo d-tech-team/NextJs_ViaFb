@@ -62,8 +62,9 @@ function Layout({ children, user }) {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    user: state.default.user,
+    user: state.user,
   };
 };
 
