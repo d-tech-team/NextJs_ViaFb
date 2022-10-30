@@ -2,6 +2,10 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getProfile as getUser } from "../../pages/api/listRouteApi";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+const token = cookies.get("token");
+
 const initialState = {
   user: null,
 };
@@ -19,10 +23,10 @@ const userSlice = createSlice({
 export const getProfile = createAsyncThunk(
   "userThunk",
   async (payload, thunkAPI) => {
-    if (typeof window !== "undefined" && sessionStorage.getItem("token")) {
+    if (token) {
       const res = await fetch(getUser, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       if (!res.ok) {

@@ -4,12 +4,15 @@ import { Breadcrumb, Card, Col, Row, Table } from "react-bootstrap";
 import PageTitle from "../components/Breadcumb";
 import styles from "../styles/Order.module.scss";
 import moment from "moment";
-import { getListOrder, getAProduct } from "./api/listRouteApi";
+import { getListOrder, getAProduct, getDataOrder } from "./api/listRouteApi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 export default function Order() {
   const [histories, setHistory] = useState([]);
-  const token =
-    typeof window !== "undefined" && sessionStorage.getItem("token");
+  const token = cookies.get("token");
 
   useEffect(() => {
     const getHistory = async () => {
@@ -19,7 +22,7 @@ export default function Order() {
         },
       });
       if (!list.ok) {
-        list = [];
+        list = { data: [] };
       }
 
       list = await list.json();
@@ -42,6 +45,31 @@ export default function Order() {
 
     getHistory().then((res) => setHistory(res));
   }, []);
+
+  const handleDownload = (id) => {
+    console.log(id);
+    if (id && token) {
+      fetch(getDataOrder(id), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          return res.blob();
+        })
+        .then((res) => {
+          const url = window.URL.createObjectURL(new Blob([res]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", `order-${id}.pdf`);
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   return (
     <>
@@ -79,7 +107,12 @@ export default function Order() {
                           {moment(item.timestamp).format("h:m:s DD-MM-YYYY")}
                         </td>
                         <td>
-                          <a href="#">Xem Chi Tiết</a>
+                          <a href="#">
+                            <FontAwesomeIcon
+                              icon={faDownload}
+                              onClick={() => handleDownload(item.id)}
+                            />
+                          </a>
                         </td>
                       </tr>
                     );

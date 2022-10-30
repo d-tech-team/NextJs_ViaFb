@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./Header.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Dropdown, Nav, NavDropdown } from "react-bootstrap";
@@ -16,15 +16,42 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { MENU_ROUTE } from "../../router/menu";
 import { connect, useDispatch } from "react-redux";
-
-const isLogin = true;
+import Cookies from "universal-cookie";
+import { logout } from "../../pages/api/listRouteApi";
+const cookies = new Cookies();
 
 function Header({ toggleMenu, isShowMenu, user }) {
   const router = useRouter();
 
+  const [isLogin, setIsLogin] = useState(false);
+  const token = cookies.get("token");
+  const prevValue = useRef(user);
+
+  useEffect(() => {
+    if (token) {
+      setIsLogin(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    prevValue.current = user;
+    if (prevValue.current !== user) {
+      prevValue.current = user;
+    }
+  }, [user]);
+
   const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    router.push("/login");
+    fetch(logout, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      if (res.status === 202) {
+        cookies.remove("token");
+        router.push(MENU_ROUTE.login);
+      }
+    });
   };
 
   return (
@@ -50,7 +77,7 @@ function Header({ toggleMenu, isShowMenu, user }) {
                 </Link>
               </Nav.Item>
               <Nav.Item className={`${styles.item} ${styles.balance}`}>
-                <Nav.Link as={"span"}> Số dư: {user?.money} VND</Nav.Link>
+                <Nav.Link as={"span"}> Số dư: {user?.money || 0} VND</Nav.Link>
               </Nav.Item>
               <NavDropdown
                 className={styles.item}
@@ -116,7 +143,7 @@ function Header({ toggleMenu, isShowMenu, user }) {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.default.user,
+    user: state.user.user,
   };
 };
 

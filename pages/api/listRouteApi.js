@@ -6,7 +6,7 @@ export const
      */
     login = domain + '/auth/login?token=full',
     register = domain + '/auth/register',
-    logout = domain + '/auth/logout',
+    logout = domain + '/auth/logout?all=true',
 
     /**
      * User Api
@@ -46,7 +46,7 @@ export const
      */
     getOrderGlobal = domain + '/orders/global',
     getAOrder = domain + '/orders/:id',
-    getDataOrder = domain + '/orders/:id/data',
+    getDataOrder = id => domain + `/orders/${id}/data?download=true`,
     getHistory = domain + '/orders/broadcast',
 
     /**

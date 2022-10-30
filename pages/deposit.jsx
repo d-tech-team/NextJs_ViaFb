@@ -14,16 +14,16 @@ import TabIcon from "../components/TabIcon";
 import styles from "../styles/Deposit.module.scss";
 import Head from "next/head";
 import { getPayment, getTransaction } from "./api/listRouteApi";
-import axios from "axios";
 import moment from "moment";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 function Deposit() {
   const [key, setKey] = useState("bank");
   const [payments, setPayment] = useState([]);
   const [history, setHistory] = useState([]);
 
-  const token =
-    typeof window !== "undefined" && sessionStorage.getItem("token");
+  const token = cookies.get("token");
 
   const getType = (type) => {
     switch (type) {

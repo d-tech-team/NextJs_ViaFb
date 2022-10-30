@@ -40,7 +40,7 @@ function Regsiter(props) {
         setTimeout(() => {
           router.push("/login");
           Swal.close();
-        }, 2000);
+        }, 1000);
       }
     } catch (error) {
       console.log(error);
@@ -81,12 +81,12 @@ function Regsiter(props) {
                 name="name"
               />
               <Form.Control.Feedback type="invalid" className={styles.feedback}>
-                Please choose enter Name.
+                Tên không được để trống
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
               <Form.Label className={styles.label}>Tên đăng nhập</Form.Label>
-              <Form.Control
+              <Form.Contro
                 className={styles.input}
                 type="text"
                 placeholder="Tên đăng nhập"
@@ -95,7 +95,7 @@ function Regsiter(props) {
                 name="username"
               />
               <Form.Control.Feedback type="invalid" className={styles.feedback}>
-                Please enter a username.
+                Username không được để trống
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
@@ -110,7 +110,7 @@ function Regsiter(props) {
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               />
               <Form.Control.Feedback className={styles.feedback} type="invalid">
-                Please enter a Email.
+                Email không hợp lệ
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
@@ -125,7 +125,7 @@ function Regsiter(props) {
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               />
               <Form.Control.Feedback type="invalid" className={styles.feedback}>
-                Password is empty or not strong.
+                Mật khẩu chưa đủ mạnh
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>

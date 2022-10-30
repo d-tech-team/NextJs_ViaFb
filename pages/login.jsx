@@ -9,13 +9,13 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { login } from "./api/listRouteApi";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 function Login() {
   const [validated, setValidated] = useState(false);
   const [value, setValue] = useState({});
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -38,11 +38,11 @@ function Login() {
       const response = await axios.post(login, value);
       if (response.status == 200) {
         showAlert("Thành công", "Đăng nhập thành công", "success");
-        sessionStorage.setItem("token", response.data.token);
+        cookies.set("token", response.data.token, { path: "/" });
         setTimeout(() => {
           router.push("/");
           Swal.close();
-        }, 2000);
+        }, 1000);
       }
     } catch (error) {
       showAlert("Thất bại", error?.response?.data?.message, "error");
@@ -79,7 +79,7 @@ function Login() {
                 name="username"
               />
               <Form.Control.Feedback type="invalid" className={styles.feedback}>
-                Please enter a username.
+                Username không được để trống.
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
@@ -91,10 +91,9 @@ function Login() {
                 required
                 onChange={onInput}
                 name="password"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               />
               <Form.Control.Feedback type="invalid" className={styles.feedback}>
-                Please enter a password.
+                Mật khẩu không được để trống.
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>

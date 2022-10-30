@@ -41,9 +41,7 @@ export async function getServerSideProps(context) {
   const { id } = context.query;
   const res = await fetch(getProductInCategory(id), {
     headers: {
-      Authorization: `Bearer ${
-        typeof window !== "undefined" ? sessionStorage.getItem("token") : null
-      }`,
+      Authorization: `Bearer ${context.req.cookies.token}`,
     },
   });
   if (!res.ok) {

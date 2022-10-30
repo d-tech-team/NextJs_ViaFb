@@ -15,17 +15,18 @@ import { buyProduct } from "../../pages/api/listRouteApi";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { getProfile } from "../../redux/features/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
-function ModalProduct({ product, show, onHide }) {
+function ModalProduct({ product, show, onHide, user }) {
   const [price, setPrice] = React.useState(product?.price ?? 1000);
   const [total, setTotal] = React.useState(0);
   const [amount, setAmount] = React.useState(0);
   const [maxAmountError, setMaxAmountError] = React.useState("");
   const dispatch = useDispatch();
 
-  const token =
-    typeof window !== "undefined" && sessionStorage.getItem("token");
+  const token = cookies.get("token");
 
   const handleChangeAmount = (e) => {
     let value = e.target.value;
@@ -40,6 +41,24 @@ function ModalProduct({ product, show, onHide }) {
 
   const handleBuy = async () => {
     try {
+      if (amount <= 0) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Số lượng phải lớn hơn 0",
+        });
+        return;
+      }
+
+      if (!user) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Bạn cần đăng nhập để mua hàng",
+        });
+        return;
+      }
+
       const response = await axios.post(
         buyProduct(product.id),
         { amount: parseInt(amount) },
@@ -150,4 +169,10 @@ function ModalProduct({ product, show, onHide }) {
   );
 }
 
-export default ModalProduct;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user,
+  };
+};
+
+export default connect(mapStateToProps)(ModalProduct);

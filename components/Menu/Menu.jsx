@@ -19,30 +19,15 @@ import { getListCategory, getProfile } from "../../pages/api/listRouteApi";
 import { MENU_ROUTE } from "../../router/menu";
 import ProfileMenu from "../ProfileMenu";
 import MenuItem from "./MenuItem";
+import Cookies from "universal-cookie";
+import { connect } from "react-redux";
+const cookies = new Cookies();
 
-const isLogin = true;
-
-function Menu() {
-  const [profile, setProfile] = useState({ username: "data" });
+function Menu({ user }) {
   const router = useRouter();
   const { asPath } = router;
   const [subMenu, setSubMenu] = useState(null);
-
-  // Fetch api user
-  useEffect(() => {
-    fetch(getProfile, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setProfile(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const [isLogin, setIsLogin] = useState(false);
 
   // Fetch api categories
   useEffect(() => {
@@ -52,6 +37,12 @@ function Menu() {
         setSubMenu(data);
       });
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setIsLogin(true);
+    }
+  }, [user]);
 
   const menus = [
     {
@@ -84,6 +75,7 @@ function Menu() {
       title: "Lịch sử mua hàng",
       href: MENU_ROUTE.order,
       icon: <FontAwesomeIcon icon={faHistory} />,
+      auth: true,
     },
     // {
     //   title: "Tin tức",
@@ -145,10 +137,16 @@ function Menu() {
               )
             )}
         </ListGroup>
-        <ProfileMenu profile={profile} />
+        <ProfileMenu />
       </div>
     </div>
   );
 }
 
-export default Menu;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user,
+  };
+};
+
+export default connect(mapStateToProps)(Menu);

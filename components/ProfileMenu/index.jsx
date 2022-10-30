@@ -20,10 +20,10 @@ function ProfileMenu({ profile, user }) {
         />
       </div>
       <h5 className={styles.username}>
-        User: <span>{user?.username}</span>
+        User: <span>{user?.username || "username"}</span>
       </h5>
       <p className={styles.money}>
-        Đã nạp: <span>{user?.money}</span> <span>VND</span>
+        Số tiền: <span>{user?.money || 0}</span> <span>VND</span>
       </p>
       <Link href={MENU_ROUTE.deposit}>
         <a className={styles.add_more}>
@@ -36,7 +36,7 @@ function ProfileMenu({ profile, user }) {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.default.user,
+    user: state.user.user,
   };
 };
 

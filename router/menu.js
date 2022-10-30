@@ -4,7 +4,6 @@ export const MENU_ROUTE = {
     'category': '/category',
     'rulePolicy': "/rules-and-policy",
     'order': "/order",
-    'blogs': "/blogs"
-
-
+    'blogs': "/blogs",
+    'login': "/login",
 }

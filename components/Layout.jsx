@@ -5,30 +5,22 @@ import Menu from "./Menu/Menu";
 import Footer from "./Footer/Footer";
 import { useRouter } from "next/router";
 import { connect, useDispatch } from "react-redux";
-import { getProfile, setUser } from "../redux/features/userSlice";
+import Cookies from "universal-cookie";
+import { getProfile } from "../redux/features/userSlice";
+const cookies = new Cookies();
 
 function Layout({ children, user }) {
   const [isShowMenu, setShowMenu] = useState(true);
   const [deviceSize, changeDeviceSize] = useState(null);
-  const router = useRouter();
   const dispatch = useDispatch();
-  const preValue = useRef();
+  const token = cookies.get("token");
 
   useEffect(() => {
-    if (typeof window !== "undefined" && sessionStorage.getItem("token")) {
+    // console.log("token", token);
+    if (token && user) {
       dispatch(getProfile());
     }
   }, []);
-
-  useEffect(() => {
-    preValue.current = user;
-    if (preValue.current !== user) {
-      preValue.current = user;
-      if (!user) {
-        router.push("/login");
-      }
-    }
-  }, [user]);
 
   useEffect(() => {
     if (typeof window != "undefined") {
@@ -62,9 +54,8 @@ function Layout({ children, user }) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
-    user: state.user,
+    user: state.user.user,
   };
 };
 

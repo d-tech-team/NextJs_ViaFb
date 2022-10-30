@@ -5,14 +5,13 @@ import { MENU_ROUTE } from "./router/menu";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-
   const baseUrl = request.url;
   const isRoute = (url: string) => {
     return request.nextUrl.pathname.startsWith(url);
   };
   // User
-  const token = '123';
-    typeof window !== "undefined" && sessionStorage.getItem("token");
+  const token = request.cookies.get("token");
+
   // Set headers
   request.headers.set("Authorization", `Bearer ${token}`);
 
@@ -36,13 +35,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/",
-    "/deposit/:path*",
-    "/category/:path*",
-    "/rules-and-policy/:path*",
-    "/order/:path*",
-    "/blogs/:path*",
-    "/login/:path*",
-  ],
+  matcher: ["/deposit/:path*", "/order/:path*", "/login/:path*"],
 };

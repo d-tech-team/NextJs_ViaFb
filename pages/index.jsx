@@ -12,7 +12,6 @@ import History from "../components/History";
 import ProductByCategory from "../components/ProductByCategory";
 import styles from "../styles/Home.module.scss";
 import {
-  getCategoriesWithProduct,
   getNotification,
   getListCategory,
   getHistory,
@@ -20,6 +19,7 @@ import {
   getAProduct,
   getStatusProduct,
 } from "./api/listRouteApi";
+
 export default function Home({ categories, histories }) {
   const [noti, setNoti] = useState([]);
 

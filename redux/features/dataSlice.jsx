@@ -2,6 +2,7 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getHistory } from "../../pages/api/listRouteApi";
+
 const initialState = {
   data: null,
 };
