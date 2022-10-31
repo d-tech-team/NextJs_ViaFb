@@ -1,8 +1,8 @@
 import axios from "axios";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { connect } from "react-redux";
 import History from "../../../components/History";
 import ProductByCategory from "../../../components/ProductByCategory";
 import {
@@ -33,9 +33,14 @@ function Category({ products, category, histories }) {
   );
 }
 
-export default Category;
+const mapStateToProps = (state) => {
+  return {
+    histories: state.data?.data?.histories,
+  };
+};
+export default connect(mapStateToProps)(Category);
 
-// This gets called on every request
+//This gets called on every request
 export async function getServerSideProps(context) {
   // Fetch data from external API
   const { id } = context.query;
@@ -75,29 +80,6 @@ export async function getServerSideProps(context) {
   }
   const category = await resCategory.json();
 
-  const resHistory = await fetch(getHistory);
-
-  if (!resHistory.ok) {
-    return {
-      notFound: true,
-    };
-  }
-
-  let histories = await resHistory.json();
-
-  histories = await Promise.all(
-    histories.map(async (item) => {
-      let product = await fetch(getAProduct(item.product));
-      product = await product.json();
-      return {
-        ...item,
-        product: product ? product.title : "title",
-      };
-    })
-  ).then((res) => res);
-
-  // console.log("histories", histories);
-
   // Pass data to the page via props
-  return { props: { products, category, histories } };
+  return { props: { products, category } };
 }

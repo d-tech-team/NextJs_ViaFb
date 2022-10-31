@@ -7,7 +7,7 @@ function ProductByCategory({category, products}) {
         <div>
             <h3 className="mb-5 text-uppercase">{category?.title} ✅</h3>
             <Row>
-                {products.map((product, index) => (
+                {Array.isArray(products) && products.map((product, index) => (
                     <Col xs={12} sm={12} md={6} lg={3} key={index}>
                         <Product product={product} />
                     </Col>

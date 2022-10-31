@@ -10,7 +10,7 @@ import { register } from "./api/listRouteApi";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 
-function Regsiter(props) {
+function Register() {
   const [validated, setValidated] = useState(false);
   const [value, setValue] = useState({});
   const router = useRouter();
@@ -143,6 +143,6 @@ function Regsiter(props) {
   );
 }
 
-Regsiter.Layout = DefaultLayout;
+Register.Layout = DefaultLayout;
 
-export default Regsiter;
+export default Register;

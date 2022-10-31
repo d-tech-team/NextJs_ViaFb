@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { connect, useDispatch } from "react-redux";
 import Cookies from "universal-cookie";
 import { getProfile } from "../redux/features/userSlice";
+import { histories } from "../redux/features/dataSlice";
 const cookies = new Cookies();
 
 function Layout({ children, user }) {
@@ -17,7 +18,8 @@ function Layout({ children, user }) {
 
   useEffect(() => {
     // console.log("token", token);
-    if (token && user) {
+    dispatch(histories());
+    if (token) {
       dispatch(getProfile());
     }
   }, []);

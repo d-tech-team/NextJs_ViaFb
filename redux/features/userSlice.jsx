@@ -23,10 +23,10 @@ const userSlice = createSlice({
 export const getProfile = createAsyncThunk(
   "userThunk",
   async (payload, thunkAPI) => {
-    if (token) {
+    if (cookies.get("token")) {
       const res = await fetch(getUser, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${cookies.get("token")}`,
         },
       });
       if (!res.ok) {
@@ -35,6 +35,7 @@ export const getProfile = createAsyncThunk(
       const data = await res.json();
       thunkAPI.dispatch(setUser(data));
     }
+    console.log(2);
   }
 );
 

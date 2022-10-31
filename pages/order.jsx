@@ -46,6 +46,27 @@ export default function Order() {
     getHistory().then((res) => setHistory(res));
   }, []);
 
+  function rawToJSON(raw) {
+    var arr = [];
+    console.log(raw);
+    var lines = raw.split("\r\n");
+
+    lines.reduce(function (obj, line) {
+      var keyValue = line.split(":");
+      var key = keyValue[0];
+      var value = keyValue[1];
+
+      Object.assign(obj, { [key]: value });
+
+      if (key == "END" && value == "VEVENT") {
+        arr.push(obj);
+        return {};
+      }
+      return obj;
+    }, {});
+    return arr;
+  }
+
   const handleDownload = (id) => {
     console.log(id);
     if (id && token) {
@@ -54,17 +75,29 @@ export default function Order() {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((res) => {
-          return res.blob();
+        .then(async (res) => {
+          const reader = res.body.getReader();
+          const { value, done } = await reader.read();
+
+          if (done) {
+            console.log("The stream was already closed!");
+          } else {
+            return new TextDecoder("utf-8").decode(value);
+          }
         })
         .then((res) => {
-          const url = window.URL.createObjectURL(new Blob([res]));
-          const link = document.createElement("a");
-          link.href = url;
-          link.setAttribute("download", `order-${id}.pdf`);
-          document.body.appendChild(link);
-          link.click();
+          console.log(res);
+          const data = rawToJSON(res);
+          console.log(data);
         })
+        // .then((res) => {
+        //   const url = window.URL.createObjectURL(new Blob([res]));
+        //   const link = document.createElement("a");
+        //   link.href = url;
+        //   link.setAttribute("download", `order-${id}.pdf`);
+        //   document.body.appendChild(link);
+        //   link.click();
+        // })
         .catch((err) => {
           console.log(err);
         });

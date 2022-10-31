@@ -25,18 +25,10 @@ function Header({ toggleMenu, isShowMenu, user }) {
 
   const [isLogin, setIsLogin] = useState(false);
   const token = cookies.get("token");
-  const prevValue = useRef(user);
 
   useEffect(() => {
-    if (token) {
+    if (token && user) {
       setIsLogin(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    prevValue.current = user;
-    if (prevValue.current !== user) {
-      prevValue.current = user;
     }
   }, [user]);
 
@@ -110,7 +102,7 @@ function Header({ toggleMenu, isShowMenu, user }) {
                   onClick={handleLogout}
                 >
                   <FontAwesomeIcon icon={faRightFromBracket} />
-                  <Link href={"#"}>Đăng xuất</Link>
+                  Đăng xuất
                 </NavDropdown.Item>
               </NavDropdown>
             </>

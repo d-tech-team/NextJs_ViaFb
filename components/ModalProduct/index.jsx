@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 import { getProfile } from "../../redux/features/userSlice";
 import { connect, useDispatch, useSelector } from "react-redux";
 import Cookies from "universal-cookie";
+import { histories } from "../../redux/features/dataSlice";
 const cookies = new Cookies();
 
 function ModalProduct({ product, show, onHide, user }) {
@@ -75,6 +76,7 @@ function ModalProduct({ product, show, onHide, user }) {
           text: 'Bạn đã mua thành công "' + product.title + '"',
         });
         dispatch(getProfile());
+        dispatch(histories());
         onHide();
       }
     } catch (error) {

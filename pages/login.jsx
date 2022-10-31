@@ -38,7 +38,7 @@ function Login() {
       const response = await axios.post(login, value);
       if (response.status == 200) {
         showAlert("Thành công", "Đăng nhập thành công", "success");
-        cookies.set("token", response.data.token, { path: "/" });
+        cookies.set("token", response.data.token);
         setTimeout(() => {
           router.push("/");
           Swal.close();

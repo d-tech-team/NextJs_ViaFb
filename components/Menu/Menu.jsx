@@ -28,6 +28,7 @@ function Menu({ user }) {
   const { asPath } = router;
   const [subMenu, setSubMenu] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
+  const token = cookies.get("token");
 
   // Fetch api categories
   useEffect(() => {
@@ -39,7 +40,7 @@ function Menu({ user }) {
   }, []);
 
   useEffect(() => {
-    if (user) {
+    if (token && user) {
       setIsLogin(true);
     }
   }, [user]);

@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
+import { connect } from "react-redux";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -20,7 +21,7 @@ import {
   getStatusProduct,
 } from "./api/listRouteApi";
 
-export default function Home({ categories, histories }) {
+function Home({ categories, histories }) {
   const [noti, setNoti] = useState([]);
 
   useEffect(() => {
@@ -117,6 +118,14 @@ export default function Home({ categories, histories }) {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    histories: state.data?.data?.histories,
+  };
+};
+
+export default connect(mapStateToProps)(Home);
+
 // This gets called on every request
 export async function getServerSideProps(context) {
   // Fetch data from external API
@@ -155,29 +164,6 @@ export async function getServerSideProps(context) {
     })
   ).then((res) => res);
 
-  const resHistory = await fetch(getHistory);
-
-  if (!resHistory.ok) {
-    return {
-      notFound: true,
-    };
-  }
-
-  let histories = await resHistory.json();
-
-  histories = await Promise.all(
-    histories.map(async (item) => {
-      let product = await fetch(getAProduct(item.product));
-      if (!product.ok) {
-        product = {};
-      }
-      product = await product.json();
-      return {
-        ...item,
-        product: product?.title ?? "title",
-      };
-    })
-  ).then((res) => res);
   // Pass data to the page via props
-  return { props: { categories, histories } };
+  return { props: { categories } };
 }

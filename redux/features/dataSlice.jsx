@@ -1,7 +1,7 @@
 "use strict";
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getHistory } from "../../pages/api/listRouteApi";
+import { getAProduct, getHistory } from "../../pages/api/listRouteApi";
 
 const initialState = {
   data: null,
@@ -27,7 +27,19 @@ export const histories = createAsyncThunk(
     if (!res.ok) {
       thunkAPI.dispatch(setData({ histories: [] }));
     }
-    const data = await res.json();
+    let data = await res.json();
+
+    data = await Promise.all(
+      data.map(async (item) => {
+        let product = await fetch(getAProduct(item.product));
+        product = await product.json();
+        return {
+          ...item,
+          product: product ? product.title : "title",
+        };
+      })
+    ).then((res) => res);
+
     thunkAPI.dispatch(setData({ histories: data }));
   }
 );
