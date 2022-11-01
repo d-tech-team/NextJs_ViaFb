@@ -86,7 +86,7 @@ function Register() {
             </Form.Group>
             <Form.Group>
               <Form.Label className={styles.label}>Tên đăng nhập</Form.Label>
-              <Form.Contro
+              <Form.Control
                 className={styles.input}
                 type="text"
                 placeholder="Tên đăng nhập"

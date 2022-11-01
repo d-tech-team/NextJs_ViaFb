@@ -75,29 +75,15 @@ export default function Order() {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then(async (res) => {
-          const reader = res.body.getReader();
-          const { value, done } = await reader.read();
-
-          if (done) {
-            console.log("The stream was already closed!");
-          } else {
-            return new TextDecoder("utf-8").decode(value);
-          }
-        })
+        .then((res) => res.blob())
         .then((res) => {
-          console.log(res);
-          const data = rawToJSON(res);
-          console.log(data);
+          const url = window.URL.createObjectURL(res);
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", `order-${id}.txt`);
+          document.body.appendChild(link);
+          link.click();
         })
-        // .then((res) => {
-        //   const url = window.URL.createObjectURL(new Blob([res]));
-        //   const link = document.createElement("a");
-        //   link.href = url;
-        //   link.setAttribute("download", `order-${id}.pdf`);
-        //   document.body.appendChild(link);
-        //   link.click();
-        // })
         .catch((err) => {
           console.log(err);
         });
