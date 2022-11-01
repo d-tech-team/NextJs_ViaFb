@@ -85,86 +85,93 @@ function Deposit() {
           onSelect={(k) => setKey(k)}
           className="mb-3"
         >
-          {Array.isArray(payments) &&  payments.map((payment, i) => (
-            <Tab
-              className={styles.tab1}
-              eventKey="bank"
-              title={<TabIcon icon={payment.icon} />}
-              key={i}
-            >
-              <Row>
-                <Col xs={12} md={6}>
-                  <Row>
-                    <Col xs={12} md={9} className="mx-auto">
-                      <Card
-                        className="p-3 border-0 shadow-sm"
-                        style={{
-                          minHeight: "450px",
-                        }}
-                      >
-                        <div>
-                          <h5>Cách 1: QRCode</h5>
-                          <p className="text-black">{payment.description}</p>
+          {Array.isArray(payments) &&
+            payments.map((payment, i) => (
+              <Tab
+                className={styles.tab1}
+                eventKey="bank"
+                title={<TabIcon icon={""} />}
+                key={i}
+              >
+                <Row>
+                  <Col xs={12} md={6}>
+                    <Row>
+                      <Col xs={12} md={9} className="mx-auto">
+                        <Card
+                          className="p-3 border-0 shadow-sm"
+                          style={{
+                            minHeight: "450px",
+                          }}
+                        >
+                          <div>
+                            <h5>Cách 1: QRCode</h5>
+                            <p className="text-black">{payment.description}</p>
+                            <img
+                              src={`https://img.vietqr.io/image/${payment.bank_name}-${payment.account_number}-compact2.png?`}
+                              width="100%"
+                              height="100%"
+                              alt=""
+                              style={{
+                                maxWidth: "200px",
+                              }}
+                              className="rounded"
+                            />
+                          </div>
+                        </Card>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <Card
+                      className="p-3 border-0 shadow-sm"
+                      style={{
+                        minHeight: "450px",
+                      }}
+                    >
+                      <div>
+                        <h5>Cách 2: Chuyển Khoản Thủ Công</h5>
+                        <Table hover>
+                          <tbody>
+                            <tr>
+                              <td>Chủ tài khoản:</td>
+                              <td>{payment.owner_name}</td>
+                            </tr>
+                            <tr>
+                              <td>Số Tài khoản:</td>
+                              <td>{payment.account_number}</td>
+                            </tr>
+                            <tr>
+                              <td>Nội dung:</td>
+                              <td>{payment.transfer_note}</td>
+                            </tr>
+                            <tr>
+                              <td>Ngân hàng:</td>
+                              <td>{payment.bank_name}</td>
+                            </tr>
+                          </tbody>
+                        </Table>
+                        <p>* Nội dung phải có khoảng cách ở giữa</p>
+                        <p>
+                          <small>Chú ý:</small>{" "}
+                          <span>
+                            Viết như này là sai ({payment.transfer_note})
+                          </span>
+                        </p>
+                        <center>
+                          <span>Đang chờ chuyển khoản</span> <br></br>
                           <Image
-                            src={payment.image}
-                            width="100%"
+                            src="/images/loading.gif"
+                            width="70px"
+                            height={"100%"}
                             alt=""
-                            style={{
-                              maxWidth: "200px",
-                            }}
-                            className="rounded"
                           />
-                        </div>
-                      </Card>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col xs={12} md={6}>
-                  <Card
-                    className="p-3 border-0 shadow-sm"
-                    style={{
-                      minHeight: "450px",
-                    }}
-                  >
-                    <div>
-                      <h5>Cách 2: Chuyển Khoản Thủ Công</h5>
-                      <Table hover>
-                        <tbody>
-                          <tr>
-                            <td>Chủ tài khoản:</td>
-                            <td>{payment.owner_name}</td>
-                          </tr>
-                          <tr>
-                            <td>Số Tài khoản:</td>
-                            <td>{payment.account_number}</td>
-                          </tr>
-                          <tr>
-                            <td>Nội dung:</td>
-                            <td>{payment.transfer_note}</td>
-                          </tr>
-                          <tr>
-                            <td>Ngân hàng:</td>
-                            <td>{payment.bank_name}</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                      <p>* Nội dung phải có khoảng cách ở giữa</p>
-                      <p>
-                        <small>Chú ý:</small>{" "}
-                        <span>
-                          Viết như này là sai ({payment.transfer_note})
-                        </span>
-                      </p>
-                      <center>
-                        <span>Đang chờ chuyển khoản</span> <br></br>
-                        <img src="/images/loading.gif" width="70px" alt="" />
-                      </center>
-                    </div>
-                  </Card>
-                </Col>
-              </Row>
-            </Tab>
-          ))}
+                        </center>
+                      </div>
+                    </Card>
+                  </Col>
+                </Row>
+              </Tab>
+            ))}
         </Tabs>
       </Card>
       <Card className="p-3 border-0 shadow-sm mt-3">

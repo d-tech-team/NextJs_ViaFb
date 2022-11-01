@@ -22,7 +22,7 @@ function Layout({ children, user }) {
     if (token) {
       dispatch(getProfile());
     }
-  }, []);
+  }, [dispatch, token]);
 
   useEffect(() => {
     if (typeof window != "undefined") {

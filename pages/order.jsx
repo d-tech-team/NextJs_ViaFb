@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
+import { Paginate } from "../components/Pagination";
 
 export default function Order() {
   const [histories, setHistory] = useState([]);
@@ -25,11 +26,15 @@ export default function Order() {
         list = { data: [] };
       }
 
+      console.log(list);
+
       list = await list.json();
 
+      list = list.data;
+
       return await Promise.all(
-        Array.isArray(list.data) &&
-          list.data.map(async (item) => {
+        Array.isArray(list) &&
+          list.map(async (item) => {
             let product = await fetch(getAProduct(item.product));
             if (!product.ok) {
               product = [];
@@ -44,31 +49,9 @@ export default function Order() {
     };
 
     getHistory().then((res) => setHistory(res));
-  }, []);
-
-  function rawToJSON(raw) {
-    var arr = [];
-    console.log(raw);
-    var lines = raw.split("\r\n");
-
-    lines.reduce(function (obj, line) {
-      var keyValue = line.split(":");
-      var key = keyValue[0];
-      var value = keyValue[1];
-
-      Object.assign(obj, { [key]: value });
-
-      if (key == "END" && value == "VEVENT") {
-        arr.push(obj);
-        return {};
-      }
-      return obj;
-    }, {});
-    return arr;
-  }
+  }, [token]);
 
   const handleDownload = (id) => {
-    console.log(id);
     if (id && token) {
       fetch(getDataOrder(id), {
         headers: {
@@ -138,6 +121,7 @@ export default function Order() {
                   })}
                 </tbody>
               </Table>
+              <Paginate page={1} pages={1} keyword={""} />
             </Card.Body>
           </Card>
         </Col>

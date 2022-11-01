@@ -12,6 +12,15 @@ const nextConfig = {
         destination: "https://api.kinue.moe/:path*"
       }
     ]
+  },
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'img.vietqr.io',
+        pathname: '/images/:path*',
+        protocol: 'https'
+      }
+    ]
   }
 
 }
